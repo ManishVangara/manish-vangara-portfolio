@@ -1,0 +1,22 @@
+[
+  {
+    "icon": "✨",
+    "title": "The Spark",
+    "description": "My journey into data science began during my first internship when I discovered hidden patterns in coffee shop sales data. That \"aha!\" moment of turning raw numbers into actionable insights changed everything. I realized data could tell stories that transform businesses."
+  },
+  {
+    "icon": "🚀",
+    "title": "The Transition",
+    "description": "I made the leap from traditional analytics to full-stack data science, diving deep into machine learning and engineering. Late nights debugging models and early mornings studying new frameworks became my routine. Every challenge was a puzzle waiting to be solved."
+  },
+  {
+    "icon": "💡",
+    "title": "The Philosophy",
+    "description": "I believe the best data science isn't about the fanciest algorithms—it's about asking the right questions and delivering insights people can actually use. My goal is to bridge the gap between complex models and real-world impact, making data accessible and actionable for everyone."
+  },
+  {
+    "icon": "🎯",
+    "title": "Today & Beyond - Manish Vangara",
+    "description": "Now, I'm focused on building scalable ML systems that solve real problems. I'm passionate about mentoring aspiring data scientists and contributing to open-source projects. My mission? To prove that great data science comes from curiosity, persistence, and always learning."
+  }
+]

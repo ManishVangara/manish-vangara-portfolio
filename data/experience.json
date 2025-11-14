@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Senior Data Scientist",
+    "company": "Tech Company Inc.",
+    "date": "Jan 2022 - Present",
+    "location": "San Francisco, CA",
+    "description": "Leading a team of 5 data scientists in developing ML models for customer behavior prediction. Implemented automated ML pipelines that reduced model deployment time by 60%. Collaborated with product teams to integrate ML-driven features serving 2M+ users."
+  },
+  {
+    "title": "Data Engineer",
+    "company": "Growth Startup LLC",
+    "date": "Jun 2020 - Dec 2021",
+    "location": "Remote",
+    "description": "Built and maintained scalable data infrastructure processing terabytes of data daily. Optimized data pipelines resulting in 40% cost reduction and 3x performance improvement. Designed data warehouse architecture supporting real-time analytics for business teams."
+  },
+  {
+    "title": "Junior Data Analyst",
+    "company": "Analytics Solutions Co.",
+    "date": "Jul 2018 - May 2020",
+    "location": "New York, NY",
+    "description": "Performed statistical analysis and created visualizations to support business decisions. Developed automated reporting systems that saved 20 hours per week. Collaborated with stakeholders to define KPIs and metrics tracking business performance."
+  }
+]

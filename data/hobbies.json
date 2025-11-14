@@ -1,0 +1,32 @@
+[
+  {
+    "icon": "📊",
+    "title": "Data Visualization",
+    "description": "Creating beautiful and insightful visualizations in my free time. Love experimenting with D3.js and creative chart designs."
+  },
+  {
+    "icon": "🎮",
+    "title": "Gaming",
+    "description": "Strategy games and puzzle solving. It's all about patterns and optimization - just like data science!"
+  },
+  {
+    "icon": "📚",
+    "title": "Reading",
+    "description": "Tech blogs, research papers, and sci-fi novels. Always learning something new about AI and data science."
+  },
+  {
+    "icon": "🏃",
+    "title": "Running",
+    "description": "Marathon runner tracking my progress with data. Nothing beats a morning run to clear the mind!"
+  },
+  {
+    "icon": "🎨",
+    "title": "Creative Coding",
+    "description": "Building generative art with Python and exploring the intersection of art and algorithms."
+  },
+  {
+    "icon": "☕️",
+    "title": "Coffee Enthusiast",
+    "description": "Perfecting the art of brewing coffee. Data-driven approach to finding the perfect cup!"
+  }
+]

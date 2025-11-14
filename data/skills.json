@@ -1,0 +1,22 @@
+[
+  {
+    "category": "Data Analysis",
+    "skills": ["Pandas", "NumPy", "Matplotlib", "Seaborn", "Excel"]
+  },
+  {
+    "category": "Programming",
+    "skills": ["Python", "SQL", "R", "Scala"]
+  },
+  {
+    "category": "Machine Learning",
+    "skills": ["TensorFlow", "PyTorch", "Scikit-learn", "XGBoost", "BERT"]
+  },
+  {
+    "category": "Data Engineering",
+    "skills": ["Apache Spark", "Airflow", "Kafka", "Docker"]
+  },
+  {
+    "category": "Cloud & Tools",
+    "skills": ["AWS", "Azure", "Tableau", "Git"]
+  }
+]

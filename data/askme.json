@@ -1,0 +1,32 @@
+[
+  {
+    "icon": "💡",
+    "title": "How I reduced ETL processing time by 70%",
+    "description": "Optimized a legacy data pipeline using Apache Spark and clever caching strategies. Happy to share the architecture decisions that made the difference."
+  },
+  {
+    "icon": "🎯",
+    "title": "Why I chose data science over software engineering",
+    "description": "The intersection of statistics, programming, and business impact fascinated me. I love that every project is a new puzzle with real-world consequences."
+  },
+  {
+    "icon": "🔥",
+    "title": "My biggest data mishap (and the lesson)",
+    "description": "Once deployed a model without checking data drift. Production accuracy dropped 30% in a week. Now I obsess over monitoring and validation pipelines."
+  },
+  {
+    "icon": "🌙",
+    "title": "The project that kept me up for 3 nights",
+    "description": "Building a real-time recommendation system that needed to serve 50K requests/second. The optimization challenges were intense but incredibly rewarding."
+  },
+  {
+    "icon": "🎲",
+    "title": "My unpopular opinion on model complexity",
+    "description": "Simple models that stakeholders understand often outperform complex ones they don't trust. Interpretability isn't just nice—it's essential for adoption."
+  },
+  {
+    "icon": "📚",
+    "title": "Resources that changed my career trajectory",
+    "description": "Three books, two MOOCs, and one mentor shaped how I think about data. The Pragmatic Programmer taught me more than any ML course."
+  }
+]
