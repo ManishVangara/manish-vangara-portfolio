@@ -1421,6 +1421,152 @@ a {
     box-shadow: 0 4px 12px rgba(250, 112, 154, 0.3);
 }
 
+/* Categories 6-10: Cycle through colors again */
+.skill-category:nth-child(6) .skill-pill {
+    background: var(--skill-bg-1);
+    color: var(--skill-text-1);
+    border-color: rgba(102, 126, 234, 0.2);
+}
+
+.skill-category:nth-child(6) .skill-pill:hover {
+    background: var(--skill-gradient-1);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.skill-category:nth-child(7) .skill-pill {
+    background: var(--skill-bg-2);
+    color: var(--skill-text-2);
+    border-color: rgba(240, 147, 251, 0.2);
+}
+
+.skill-category:nth-child(7) .skill-pill:hover {
+    background: var(--skill-gradient-2);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(240, 147, 251, 0.3);
+}
+
+.skill-category:nth-child(8) .skill-pill {
+    background: var(--skill-bg-3);
+    color: var(--skill-text-3);
+    border-color: rgba(79, 172, 254, 0.2);
+}
+
+.skill-category:nth-child(8) .skill-pill:hover {
+    background: var(--skill-gradient-3);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 172, 254, 0.3);
+}
+
+.skill-category:nth-child(9) .skill-pill {
+    background: var(--skill-bg-4);
+    color: var(--skill-text-4);
+    border-color: rgba(67, 233, 123, 0.2);
+}
+
+.skill-category:nth-child(9) .skill-pill:hover {
+    background: var(--skill-gradient-4);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(67, 233, 123, 0.3);
+}
+
+.skill-category:nth-child(10) .skill-pill {
+    background: var(--skill-bg-5);
+    color: var(--skill-text-5);
+    border-color: rgba(250, 112, 154, 0.2);
+}
+
+.skill-category:nth-child(10) .skill-pill:hover {
+    background: var(--skill-gradient-5);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(250, 112, 154, 0.3);
+}
+
+/* Categories 11-15: Continue cycling */
+.skill-category:nth-child(11) .skill-pill {
+    background: var(--skill-bg-1);
+    color: var(--skill-text-1);
+    border-color: rgba(102, 126, 234, 0.2);
+}
+
+.skill-category:nth-child(11) .skill-pill:hover {
+    background: var(--skill-gradient-1);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.skill-category:nth-child(12) .skill-pill {
+    background: var(--skill-bg-2);
+    color: var(--skill-text-2);
+    border-color: rgba(240, 147, 251, 0.2);
+}
+
+.skill-category:nth-child(12) .skill-pill:hover {
+    background: var(--skill-gradient-2);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(240, 147, 251, 0.3);
+}
+
+.skill-category:nth-child(13) .skill-pill {
+    background: var(--skill-bg-3);
+    color: var(--skill-text-3);
+    border-color: rgba(79, 172, 254, 0.2);
+}
+
+.skill-category:nth-child(13) .skill-pill:hover {
+    background: var(--skill-gradient-3);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(79, 172, 254, 0.3);
+}
+
+.skill-category:nth-child(14) .skill-pill {
+    background: var(--skill-bg-4);
+    color: var(--skill-text-4);
+    border-color: rgba(67, 233, 123, 0.2);
+}
+
+.skill-category:nth-child(14) .skill-pill:hover {
+    background: var(--skill-gradient-4);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(67, 233, 123, 0.3);
+}
+
+.skill-category:nth-child(15) .skill-pill {
+    background: var(--skill-bg-5);
+    color: var(--skill-text-5);
+    border-color: rgba(250, 112, 154, 0.2);
+}
+
+.skill-category:nth-child(15) .skill-pill:hover {
+    background: var(--skill-gradient-5);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(250, 112, 154, 0.3);
+}
+
+/* Default fallback for any additional categories beyond 15 */
+.skill-category:nth-child(n+16) .skill-pill {
+    background: var(--skill-bg-1);
+    color: var(--skill-text-1);
+    border-color: rgba(102, 126, 234, 0.2);
+}
+
+.skill-category:nth-child(n+16) .skill-pill:hover {
+    background: var(--skill-gradient-1);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .skills-grid {

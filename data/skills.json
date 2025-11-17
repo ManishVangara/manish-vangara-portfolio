@@ -16,7 +16,11 @@
     "skills": ["Apache Spark", "Airflow", "Kafka", "Docker"]
   },
   {
-    "category": "Cloud & Tools",
-    "skills": ["AWS", "Azure", "Tableau", "Git"]
+    "category": "Cloud and Tools",
+    "skills": ["AWS", "Azure","GCP", "Tableau", "Databricks","Git"]
+  },
+  {
+    "category": "Gen AI",
+    "skills": ["LangChain", "Prompt Engineering", "Hugging Face"]
   }
 ]
