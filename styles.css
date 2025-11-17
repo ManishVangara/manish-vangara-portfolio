@@ -1258,13 +1258,16 @@ a {
     align-items: center;
     margin-top: 40px;
     margin-bottom: 20px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
 }
 
 .btn-view-all {
     padding: 16px 32px;
     border-radius: 12px;
     background: linear-gradient(135deg, var(--accent) 0%, #9333ea 100%);
-    color: white;
+    color: white !important;
     border: none;
     cursor: pointer;
     font-size: 16px;
@@ -1275,6 +1278,7 @@ a {
     align-items: center;
     gap: 10px;
     box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    position: relative;
 }
 
 .btn-view-all:hover {

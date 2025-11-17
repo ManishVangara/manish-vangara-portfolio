@@ -44,7 +44,12 @@
     async function loadAllProjects() {
         const allProjectsContainer = document.getElementById('allProjectsContainer');
 
-        if (!allProjectsContainer) return;
+        if (!allProjectsContainer) {
+            console.error('❌ allProjectsContainer not found');
+            return;
+        }
+
+        console.log('📁 Loading all projects...');
 
         try {
             // Try to load from projects.json
@@ -55,6 +60,7 @@
             }
 
             const projects = await response.json();
+            console.log(`✅ Loaded ${projects.length} projects successfully`);
 
             // Clear loading message
             allProjectsContainer.innerHTML = '';
@@ -65,8 +71,10 @@
                 allProjectsContainer.appendChild(card);
             });
 
+            console.log('✅ All project cards rendered');
+
         } catch (error) {
-            console.error('Error loading projects:', error);
+            console.error('❌ Error loading projects:', error);
             allProjectsContainer.innerHTML = '<p class="loading">Failed to load projects.</p>';
         }
     }
@@ -1146,11 +1154,15 @@
     // INITIALIZE ALL FUNCTIONALITY
     // ============================================
     function init() {
+        console.log('🚀 Initializing portfolio...');
+
         // Load projects from external file
         // Check if we're on the projects.html page
         if (document.getElementById('allProjectsContainer')) {
+            console.log('📄 Detected projects.html page');
             loadAllProjects();
         } else {
+            console.log('🏠 Detected index.html page');
             loadProjects(6); // Limit to 6 projects on the home page
         }
 
