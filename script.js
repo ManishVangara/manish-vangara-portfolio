@@ -31,9 +31,7 @@
             
         } catch (error) {
             console.error('Error loading projects:', error);
-            
-            // Fallback to default projects if file not found
-            loadDefaultProjects(projectsContainer);
+            projectsContainer.innerHTML = '<p class="loading">Failed to load projects.</p>';
         }
     }
     
@@ -64,9 +62,7 @@
             
         } catch (error) {
             console.error('Error loading certifications:', error);
-            
-            // Fallback to default certifications if file not found
-            loadDefaultCertifications(certificationsContainer);
+            certificationsContainer.innerHTML = '<p class="loading">Failed to load certifications.</p>';
         }
     }
     
@@ -89,17 +85,15 @@
             // Clear loading message
             skillsContainer.innerHTML = '';
             
-            // Create skill bubbles (passing category index for coloring)
+            // Create skill category cards
             skillCategories.forEach((category, index) => {
-                const bubbles = createSkillCategoryCard(category, index);
-                skillsContainer.appendChild(bubbles);
+                const categoryCard = createSkillCategoryCard(category, index);
+                skillsContainer.appendChild(categoryCard);
             });
             
         } catch (error) {
             console.error('Error loading skills:', error);
-            
-            // Fallback to default skills if file not found
-            loadDefaultSkills(skillsContainer);
+            skillsContainer.innerHTML = '<p class="loading">Failed to load skills.</p>';
         }
     }
     
@@ -130,9 +124,7 @@
             
         } catch (error) {
             console.error('Error loading experience:', error);
-            
-            // Fallback to default experience if file not found
-            loadDefaultExperience(experienceContainer);
+            experienceContainer.innerHTML = '<p class="loading">Failed to load experience.</p>';
         }
     }
     
@@ -163,9 +155,7 @@
             
         } catch (error) {
             console.error('Error loading education:', error);
-            
-            // Fallback to default education if file not found
-            loadDefaultEducation(educationContainer);
+            educationContainer.innerHTML = '<p class="loading">Failed to load education.</p>';
         }
     }
     
@@ -196,9 +186,7 @@
             
         } catch (error) {
             console.error('Error loading hobbies:', error);
-            
-            // Fallback to default hobbies if file not found
-            loadDefaultHobbies(hobbiesContainer);
+            hobbiesContainer.innerHTML = '<p class="loading">Failed to load hobbies.</p>';
         }
     }
     
@@ -233,9 +221,7 @@
 
         } catch (error) {
             console.error('Error loading story:', error);
-
-            // Fallback to default story if file not found
-            loadDefaultStory(storyContainer);
+            storyContainer.innerHTML = '<p class="loading">Failed to load story.</p>';
         }
     }
     
@@ -266,9 +252,7 @@
             
         } catch (error) {
             console.error('Error loading ask me topics:', error);
-            
-            // Fallback to default topics if file not found
-            loadDefaultAskMe(askMeContainer);
+            askMeContainer.innerHTML = '<p class="loading">Failed to load topics.</p>';
         }
     }
     
@@ -299,9 +283,7 @@
             
         } catch (error) {
             console.error('Error loading lessons:', error);
-            
-            // Fallback to default lessons if file not found
-            loadDefaultLessons(lessonsContainer);
+            lessonsContainer.innerHTML = '<p class="loading">Failed to load lessons.</p>';
         }
     }
     
@@ -564,374 +546,6 @@
         
         return card;
     }
-    
-    // ============================================
-    // LOAD DEFAULT PROJECTS
-    // ============================================
-    function loadDefaultProjects(container) {
-        container.innerHTML = '';
-        
-        const defaultProjects = [
-            {
-                title: 'Customer Churn Prediction',
-                image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-                techStack: 'Python • Scikit-learn • XGBoost • AWS',
-                description: 'Developed a machine learning model to predict customer churn with 92% accuracy, enabling proactive retention strategies that reduced churn by 25% and saved $2M annually.',
-                link: 'https://github.com/yourusername/churn-prediction'
-            },
-            {
-                title: 'Real-Time Analytics Dashboard',
-                image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&q=80',
-                techStack: 'React • D3.js • Apache Kafka • PostgreSQL',
-                description: 'Built an interactive real-time dashboard visualizing key business metrics across multiple regions, processing 50K+ events per second with sub-second latency.',
-                link: 'https://github.com/yourusername/analytics-dashboard'
-            },
-            {
-                title: 'Scalable ETL Pipeline',
-                image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop',
-                techStack: 'Apache Spark • Airflow • Docker • AWS S3',
-                description: 'Designed and implemented a fault-tolerant ETL pipeline processing 10M+ records daily, reducing data processing time by 70% and infrastructure costs by 40%.',
-                link: 'https://github.com/yourusername/etl-pipeline'
-            },
-            {
-                title: 'NLP Sentiment Analysis',
-                image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&h=600&fit=crop',
-                techStack: 'Python • BERT • TensorFlow • FastAPI',
-                description: 'Created an NLP model analyzing customer feedback sentiment from 100K+ reviews, providing actionable insights that improved product ratings by 15%.',
-                link: 'https://github.com/yourusername/sentiment-analysis'
-            }
-        ];
-        
-        defaultProjects.forEach(project => {
-            const card = createProjectCard(project);
-            container.appendChild(card);
-        });
-    }
-    
-    // ============================================
-    // LOAD DEFAULT CERTIFICATIONS
-    // ============================================
-    function loadDefaultCertifications(container) {
-        container.innerHTML = '';
-        
-        const defaultCertifications = [
-            {
-                title: 'AWS Certified Machine Learning - Specialty',
-                organization: 'Amazon Web Services',
-                description: 'Specialty certification demonstrating expertise in building, training, and deploying machine learning models on AWS platform.',
-                link: 'https://aws.amazon.com/certification/certified-machine-learning-specialty/'
-            },
-            {
-                title: 'Google Data Analytics Professional Certificate',
-                organization: 'Google',
-                description: 'Professional certificate covering data analysis, visualization, and storytelling using industry-standard tools and practices.',
-                link: 'https://www.coursera.org/professional-certificates/google-data-analytics'
-            },
-            {
-                title: 'TensorFlow Developer Certificate',
-                organization: 'TensorFlow',
-                description: 'Official certification validating skills in building and training neural networks using TensorFlow framework.',
-                link: 'https://www.tensorflow.org/certificate'
-            },
-            {
-                title: 'Apache Spark & Scala Certification',
-                organization: 'Databricks',
-                description: 'Professional certification demonstrating proficiency in big data processing and analytics using Apache Spark and Scala.'
-            },
-            {
-                title: 'Microsoft Certified: Azure Data Scientist Associate',
-                organization: 'Microsoft',
-                description: 'Certification validating skills in implementing and running machine learning workloads on Microsoft Azure.',
-                link: 'https://learn.microsoft.com/en-us/certifications/azure-data-scientist/'
-            }
-        ];
-        
-        defaultCertifications.forEach(certification => {
-            const card = createCertificationCard(certification);
-            container.appendChild(card);
-        });
-    }
-    
-    // ============================================
-    // LOAD DEFAULT SKILLS
-    // ============================================
-    function loadDefaultSkills(container) {
-        container.innerHTML = '';
-        
-        const defaultSkills = [
-            {
-                category: 'Programming',
-                skills: ['Python', 'SQL', 'R', 'Scala']
-            },
-            {
-                category: 'Machine Learning',
-                skills: ['TensorFlow', 'PyTorch', 'Scikit-learn', 'XGBoost']
-            },
-            {
-                category: 'Data Engineering',
-                skills: ['Apache Spark', 'Airflow', 'Kafka', 'Docker']
-            },
-            {
-                category: 'Cloud & Tools',
-                skills: ['AWS', 'Azure', 'Tableau', 'Git']
-            }
-        ];
-        
-        defaultSkills.forEach((category, index) => {
-            const bubbles = createSkillCategoryCard(category, index);
-            container.appendChild(bubbles);
-        });
-    }
-    
-    // ============================================
-    // LOAD DEFAULT EXPERIENCE
-    // ============================================
-    function loadDefaultExperience(container) {
-        container.innerHTML = '';
-        
-        const defaultExperience = [
-            {
-                title: 'Senior Data Scientist',
-                company: 'Tech Company Inc.',
-                date: 'Jan 2022 - Present',
-                location: 'San Francisco, CA',
-                description: 'Leading a team of 5 data scientists in developing ML models for customer behavior prediction. Implemented automated ML pipelines that reduced model deployment time by 60%. Collaborated with product teams to integrate ML-driven features serving 2M+ users.'
-            },
-            {
-                title: 'Data Engineer',
-                company: 'Growth Startup LLC',
-                date: 'Jun 2020 - Dec 2021',
-                location: 'Remote',
-                description: 'Built and maintained scalable data infrastructure processing terabytes of data daily. Optimized data pipelines resulting in 40% cost reduction and 3x performance improvement. Designed data warehouse architecture supporting real-time analytics for business teams.'
-            },
-            {
-                title: 'Junior Data Analyst',
-                company: 'Analytics Solutions Co.',
-                date: 'Jul 2018 - May 2020',
-                location: 'New York, NY',
-                description: 'Performed statistical analysis and created visualizations to support business decisions. Developed automated reporting systems that saved 20 hours per week. Collaborated with stakeholders to define KPIs and metrics tracking business performance.'
-            }
-        ];
-        
-        defaultExperience.forEach(experience => {
-            const item = createExperienceItem(experience);
-            container.appendChild(item);
-        });
-    }
-    
-    // ============================================
-    // LOAD DEFAULT EDUCATION
-    // ============================================
-    function loadDefaultEducation(container) {
-        container.innerHTML = '';
-        
-        const defaultEducation = [
-            {
-                degree: 'Master of Science in Data Science',
-                institution: 'Stanford University',
-                date: '2016 - 2018',
-                location: 'Stanford, CA',
-                description: 'Specialized in machine learning and statistical modeling. Thesis on predictive analytics for healthcare outcomes. GPA: 3.9/4.0'
-            },
-            {
-                degree: 'Bachelor of Science in Computer Science',
-                institution: 'University of California, Berkeley',
-                date: '2012 - 2016',
-                location: 'Berkeley, CA',
-                description: 'Focus on algorithms, data structures, and artificial intelligence. Dean\'s List all semesters. Founded the Data Science Club. GPA: 3.8/4.0'
-            }
-        ];
-        
-        defaultEducation.forEach(edu => {
-            const item = createEducationItem(edu);
-            container.appendChild(item);
-        });
-    }
-    
-    // ============================================
-    // LOAD DEFAULT HOBBIES
-    // ============================================
-    function loadDefaultHobbies(container) {
-        container.innerHTML = '';
-        
-        const defaultHobbies = [
-            {
-                icon: '📊',
-                title: 'Data Visualization',
-                description: 'Creating beautiful and insightful visualizations in my free time. Love experimenting with D3.js and creative chart designs.'
-            },
-            {
-                icon: '🎮',
-                title: 'Gaming',
-                description: 'Strategy games and puzzle solving. It\'s all about patterns and optimization - just like data science!'
-            },
-            {
-                icon: '📚',
-                title: 'Reading',
-                description: 'Tech blogs, research papers, and sci-fi novels. Always learning something new about AI and data science.'
-            },
-            {
-                icon: '🏃',
-                title: 'Running',
-                description: 'Marathon runner tracking my progress with data. Nothing beats a morning run to clear the mind!'
-            },
-            {
-                icon: '🎨',
-                title: 'Creative Coding',
-                description: 'Building generative art with Python and exploring the intersection of art and algorithms.'
-            },
-            {
-                icon: '☕',
-                title: 'Coffee Enthusiast',
-                description: 'Perfecting the art of brewing coffee. Data-driven approach to finding the perfect cup!'
-            }
-        ];
-        
-        defaultHobbies.forEach(hobby => {
-            const card = createHobbyCard(hobby);
-            container.appendChild(card);
-        });
-    }
-    
-    // ============================================
-    // LOAD DEFAULT STORY
-    // ============================================
-    function loadDefaultStory(container) {
-        container.innerHTML = '';
-        
-        const defaultStory = [
-            {
-                icon: '✨',
-                title: 'The Spark',
-                description: 'My journey into data science began during my first internship when I discovered hidden patterns in coffee shop sales data. That "aha!" moment of turning raw numbers into actionable insights changed everything. I realized data could tell stories that transform businesses.'
-            },
-            {
-                icon: '🚀',
-                title: 'The Transition',
-                description: 'I made the leap from traditional analytics to full-stack data science, diving deep into machine learning and engineering. Late nights debugging models and early mornings studying new frameworks became my routine. Every challenge was a puzzle waiting to be solved.'
-            },
-            {
-                icon: '💡',
-                title: 'The Philosophy',
-                description: 'I believe the best data science isn\'t about the fanciest algorithms—it\'s about asking the right questions and delivering insights people can actually use. My goal is to bridge the gap between complex models and real-world impact, making data accessible and actionable for everyone.'
-            },
-            {
-                icon: '🎯',
-                title: 'Today & Beyond',
-                description: 'Now, I\'m focused on building scalable ML systems that solve real problems. I\'m passionate about mentoring aspiring data scientists and contributing to open-source projects. My mission? To prove that great data science comes from curiosity, persistence, and always learning.'
-            }
-        ];
-        
-        defaultStory.forEach((story, index) => {
-            const card = createStoryCard(story);
-            // Open first card by default
-            if (index === 0) {
-                card.classList.add('active');
-            }
-            container.appendChild(card);
-        });
-    }
-    
-    // ============================================
-    // LOAD DEFAULT ASK ME
-    // ============================================
-    function loadDefaultAskMe(container) {
-        container.innerHTML = '';
-        
-        const defaultTopics = [
-            {
-                icon: '💡',
-                title: 'How I reduced ETL processing time by 70%',
-                description: 'Optimized a legacy data pipeline using Apache Spark and clever caching strategies. Happy to share the architecture decisions that made the difference.'
-            },
-            {
-                icon: '🎯',
-                title: 'Why I chose data science over software engineering',
-                description: 'The intersection of statistics, programming, and business impact fascinated me. I love that every project is a new puzzle with real-world consequences.'
-            },
-            {
-                icon: '🔥',
-                title: 'My biggest data mishap (and the lesson)',
-                description: 'Once deployed a model without checking data drift. Production accuracy dropped 30% in a week. Now I obsess over monitoring and validation pipelines.'
-            },
-            {
-                icon: '🌙',
-                title: 'The project that kept me up for 3 nights',
-                description: 'Building a real-time recommendation system that needed to serve 50K requests/second. The optimization challenges were intense but incredibly rewarding.'
-            },
-            {
-                icon: '🎲',
-                title: 'My unpopular opinion on model complexity',
-                description: 'Simple models that stakeholders understand often outperform complex ones they don\'t trust. Interpretability isn\'t just nice—it\'s essential for adoption.'
-            },
-            {
-                icon: '📚',
-                title: 'Resources that changed my career trajectory',
-                description: 'Three books, two MOOCs, and one mentor shaped how I think about data. The Pragmatic Programmer taught me more than any ML course.'
-            }
-        ];
-        
-        defaultTopics.forEach(topic => {
-            const card = createAskMeCard(topic);
-            container.appendChild(card);
-        });
-    }
-    
-    // ============================================
-    // LOAD DEFAULT LESSONS
-    // ============================================
-    function loadDefaultLessons(container) {
-        container.innerHTML = '';
-        
-        const defaultLessons = [
-            {
-                number: '01',
-                title: 'The Model That Looked Perfect... On Paper',
-                tags: [
-                    { name: 'Failure', type: 'failure' },
-                    { name: 'Machine Learning', type: 'normal' }
-                ],
-                story: 'Built a customer churn prediction model with 95% accuracy in testing. Celebrated, deployed, and... it failed spectacularly in production. Turns out, I had data leakage—using information that wouldn\'t be available at prediction time.',
-                lesson: 'Always simulate the production environment during testing. If it feels too good to be true, dig deeper. Now I obsessively check for temporal leakage and use time-based splits.'
-            },
-            {
-                number: '02',
-                title: 'When I Over-Engineered a Simple Solution',
-                tags: [
-                    { name: 'Mistake', type: 'mistake' },
-                    { name: 'Architecture', type: 'normal' }
-                ],
-                story: 'Spent three weeks building a sophisticated deep learning model for a classification problem. A senior engineer showed me a logistic regression solution that performed just as well and took 10 minutes to build.',
-                lesson: 'Start simple, then scale complexity only when needed. The best solution is the one that solves the problem reliably, not the one that sounds coolest at conferences.'
-            },
-            {
-                number: '03',
-                title: 'Ignoring the Stakeholders\' Perspective',
-                tags: [
-                    { name: 'Failure', type: 'failure' },
-                    { name: 'Communication', type: 'normal' }
-                ],
-                story: 'Created an amazing recommendation system with cutting-edge collaborative filtering. Business team rejected it because they couldn\'t explain to customers why certain products were recommended. All that work, shelved.',
-                lesson: 'Model interpretability isn\'t optional—it\'s a feature. Now I involve stakeholders from day one and prioritize solutions they can actually use and trust.'
-            },
-            {
-                number: '04',
-                title: 'The Pipeline That Wasn\'t Production-Ready',
-                tags: [
-                    { name: 'Mistake', type: 'mistake' },
-                    { name: 'Engineering', type: 'normal' }
-                ],
-                story: 'My Jupyter notebook worked perfectly for the demo. Handed it off to engineering, and they spent two weeks refactoring it. No error handling, hardcoded paths, no logging, no tests. It was a mess.',
-                lesson: 'Write production-quality code from the start. Every notebook should have error handling, logging, and tests. "It works on my machine" isn\'t a deployment strategy.'
-            }
-        ];
-        
-        defaultLessons.forEach(lesson => {
-            const card = createLessonCard(lesson);
-            container.appendChild(card);
-        });
-    }
-    
     // ============================================
     // ESCAPE HTML (SECURITY)
     // ============================================
