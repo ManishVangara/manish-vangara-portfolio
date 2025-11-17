@@ -39,5 +39,11 @@
     "image": "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop",
     "techStack": "Python • Isolation Forest • PostgreSQL • Docker",
     "description": "Developed an anomaly detection system that identified fraudulent transactions with 95% precision, saving the company $1.5M annually."
+  }, 
+  {
+    "title": "Image Classification with CNNs",
+    "image": "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?w=800&h=600&fit=crop",
+    "techStack": "Python • Keras • TensorFlow • OpenCV",
+    "description": "Implemented a convolutional neural network (CNN) for image classification achieving 98% accuracy on a dataset of 50,000 images, enhancing automated tagging processes."
   }
 ]
