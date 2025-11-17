@@ -207,29 +207,33 @@
     // ============================================
     async function loadMyStory() {
         const storyContainer = document.getElementById('storyContainer');
-        
+
         try {
             // Try to load from mystory.json
             const response = await fetch('data/mystory.json');
-            
+
             if (!response.ok) {
                 throw new Error('Failed to load story');
             }
-            
+
             const stories = await response.json();
-            
+
             // Clear loading message
             storyContainer.innerHTML = '';
-            
+
             // Create story cards
-            stories.forEach(story => {
+            stories.forEach((story, index) => {
                 const card = createStoryCard(story);
+                // Open first card by default
+                if (index === 0) {
+                    card.classList.add('active');
+                }
                 storyContainer.appendChild(card);
             });
-            
+
         } catch (error) {
             console.error('Error loading story:', error);
-            
+
             // Fallback to default story if file not found
             loadDefaultStory(storyContainer);
         }
@@ -477,18 +481,40 @@
     }
     
     // ============================================
-    // CREATE STORY CARD
+    // CREATE STORY CARD (ACCORDION STYLE)
     // ============================================
     function createStoryCard(story) {
         const card = document.createElement('div');
         card.className = 'story-card';
-        
+
         card.innerHTML = `
-            <div class="story-icon">${escapeHtml(story.icon)}</div>
-            <h3>${escapeHtml(story.title)}</h3>
-            <p>${escapeHtml(story.description)}</p>
+            <div class="story-card-header">
+                <div class="story-icon">${escapeHtml(story.icon)}</div>
+                <div class="story-card-title-wrapper">
+                    <h3>${escapeHtml(story.title)}</h3>
+                </div>
+                <div class="story-expand-icon">+</div>
+            </div>
+            <div class="story-card-content">
+                <p>${escapeHtml(story.description)}</p>
+            </div>
         `;
-        
+
+        // Add click event to toggle accordion
+        const header = card.querySelector('.story-card-header');
+        header.addEventListener('click', function() {
+            // Close other cards
+            const allCards = document.querySelectorAll('.story-card');
+            allCards.forEach(otherCard => {
+                if (otherCard !== card && otherCard.classList.contains('active')) {
+                    otherCard.classList.remove('active');
+                }
+            });
+
+            // Toggle current card
+            card.classList.toggle('active');
+        });
+
         return card;
     }
     
@@ -796,8 +822,12 @@
             }
         ];
         
-        defaultStory.forEach(story => {
+        defaultStory.forEach((story, index) => {
             const card = createStoryCard(story);
+            // Open first card by default
+            if (index === 0) {
+                card.classList.add('active');
+            }
             container.appendChild(card);
         });
     }
