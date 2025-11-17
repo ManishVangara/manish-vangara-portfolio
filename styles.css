@@ -70,6 +70,41 @@
     --transition-base: 0.3s ease;
     --transition-slow: 0.5s ease;
 
+    /* Typography - Font Families */
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-accent: 'Caveat', cursive;
+
+    /* Typography - Font Sizes (Major Third Scale 1.250) */
+    --text-xs: 0.75rem;      /* 12px - Small labels, captions */
+    --text-sm: 0.875rem;     /* 14px - Secondary text, dates */
+    --text-base: 1rem;       /* 16px - Body text (default) */
+    --text-lg: 1.125rem;     /* 18px - Large body, buttons */
+    --text-xl: 1.25rem;      /* 20px - Small headings */
+    --text-2xl: 1.563rem;    /* 25px - Card titles */
+    --text-3xl: 1.953rem;    /* 31px - Section titles */
+    --text-4xl: 2.441rem;    /* 39px - Page titles */
+    --text-5xl: 3.052rem;    /* 49px - Hero title */
+    --text-6xl: 3.815rem;    /* 61px - Large hero */
+
+    /* Typography - Font Weights */
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Typography - Line Heights */
+    --line-height-tight: 1.1;
+    --line-height-snug: 1.3;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.7;
+
+    /* Typography - Letter Spacing */
+    --letter-spacing-tight: -0.02em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.025em;
+    --letter-spacing-wider: 0.05em;
+
     /* Breakpoints (for reference in comments) */
     /* Mobile: 480px */
     /* Tablet: 768px */
@@ -99,28 +134,30 @@ html:focus-within {
    BASE STYLES
    ============================================ */
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     background: var(--bg-primary);
     color: var(--text-primary);
     transition: background 0.3s ease, color 0.3s ease;
     overflow-x: hidden;
-    line-height: 1.6;
+    line-height: var(--line-height-normal);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: var(--text-base);
 }
 h1, h2, h3 {
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+    font-family: var(--font-heading);
+    line-height: var(--line-height-snug);
+    letter-spacing: var(--letter-spacing-tight);
 }
 h1 {
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
 }
 h2 {
-    font-weight: 700;
-    letter-spacing: -0.03em;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-tight);
 }
 h3 {
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
 }
 p {
     letter-spacing: 0.01em;
@@ -164,12 +201,12 @@ a {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 .sidebar h1 {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-heading);
     font-size: 28px;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     margin-bottom: 8px;
     text-align: center;
-    letter-spacing: -0.5px;
+    letter-spacing: var(--letter-spacing-tight);
 }
 .sidebar .title {
     font-size: 14px;
@@ -230,9 +267,9 @@ a {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 .tagline {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     font-size: 14px;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     text-align: center;
     color: var(--text-secondary);
     font-style: italic;
@@ -602,15 +639,15 @@ a {
     padding: 40px 0;
 }
 .section-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 42px;
-    font-weight: 700;
+    font-family: var(--font-heading);
+    font-size: var(--text-4xl);
+    font-weight: var(--font-weight-bold);
     margin-bottom: 40px;
     text-align: center;
     width: 100%;
     position: relative;
     padding-bottom: 20px;
-    letter-spacing: -0.5px;
+    letter-spacing: var(--letter-spacing-tight);
 }
 .section-title::after {
     content: '';
@@ -700,10 +737,10 @@ a {
 }
 
 .hero-content .greeting {
-    font-size: 28px;
+    font-size: var(--text-2xl);
     color: var(--text-secondary);
     margin-bottom: 15px;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
 }
 .wave {
     display: inline-block;
@@ -718,12 +755,12 @@ a {
     50% { transform: rotate(0deg); }
 }
 .hero-name {
-    font-family: 'Poppins', sans-serif;
-    font-size: 72px;
-    font-weight: 800;
+    font-family: var(--font-heading);
+    font-size: var(--text-5xl);
+    font-weight: var(--font-weight-bold);
     margin-bottom: 15px;
-    line-height: 1.1;
-    letter-spacing: -1px;
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
 }
 .name-highlight {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
@@ -736,19 +773,19 @@ a {
 
 /* Hero Title */
 .hero-title {
-    font-size: 24px;
-    font-weight: 500;
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium);
     color: var(--text-secondary);
     margin-bottom: 30px;
-    letter-spacing: 0.5px;
+    letter-spacing: var(--letter-spacing-wide);
 }
 @keyframes gradient-shift {
     0%, 100% { background-position: 0% center; }
     50% { background-position: 100% center; }
 }
 .hero-tagline {
-    font-size: 32px;
-    font-weight: 600;
+    font-size: var(--text-3xl);
+    font-weight: var(--font-weight-semibold);
     color: var(--text-primary);
     margin-bottom: 50px;
     min-height: 48px;
@@ -813,8 +850,8 @@ a {
     margin-bottom: 10px;
 }
 .metric-value {
-    font-size: 48px;
-    font-weight: 800;
+    font-size: var(--text-5xl);
+    font-weight: var(--font-weight-bold);
     background: linear-gradient(135deg, var(--accent) 0%, #9333ea 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -823,11 +860,11 @@ a {
     margin-bottom: 8px;
 }
 .metric-label {
-    font-size: 13px;
+    font-size: var(--text-sm);
     color: var(--text-secondary);
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: var(--letter-spacing-wide);
 }
 .current-status {
     max-width: 700px;
@@ -878,8 +915,8 @@ a {
 .btn-secondary-new {
     padding: 16px 32px;
     border-radius: 12px;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
     text-decoration: none;
     transition: all 0.3s ease;
     display: inline-flex;
@@ -918,8 +955,8 @@ a {
     position: relative;
     padding: 16px 32px;
     border-radius: 12px;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
     text-decoration: none;
     transition: all 0.3s ease;
     display: inline-flex;
@@ -1035,9 +1072,9 @@ a {
    ============================================ */
 .quote {
     position: relative;
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-accent);
     font-size: 24px;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     color: var(--text-primary);
     padding: 30px 40px;
     margin: 40px auto;
@@ -1055,14 +1092,14 @@ a {
     font-size: 70px;
     color: var(--accent);
     opacity: 0.2;
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-accent);
     line-height: 1;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
 }
 /* Section Quotes - Handwritten Note Style */
 .section-quote {
     position: relative;
-    font-family: 'Caveat', cursive;
+    font-family: var(--font-accent);
     font-size: 26px;
     font-weight: 600;
     color: var(--text-primary);
@@ -1266,13 +1303,13 @@ a {
     transform: scale(1.2);
 }
 .card h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 22px;
-    font-weight: 600;
+    font-family: var(--font-heading);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-semibold);
     margin-bottom: 12px;
     color: var(--accent);
-    line-height: 1.3;
-    letter-spacing: -0.3px;
+    line-height: var(--line-height-snug);
+    letter-spacing: var(--letter-spacing-tight);
 }
 /* Ensure consistent title height */
 #certificationsContainer .card h3 {
@@ -1288,8 +1325,8 @@ a {
 }
 .card p {
     color: var(--text-secondary);
-    line-height: 1.6;
-    font-size: 15px;
+    line-height: var(--line-height-normal);
+    font-size: var(--text-base);
 }
 /* Better text handling for descriptions */
 #certificationsContainer .card p {
@@ -1330,9 +1367,9 @@ a {
 }
 
 .skill-category-title {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-heading);
     font-size: 16px;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     color: var(--text-primary);
     margin-bottom: 14px;
     letter-spacing: -0.3px;
@@ -1673,15 +1710,15 @@ a {
 }
 /* Role/Degree title */
 .timeline-item h3 {
-    font-size: 22px;
+    font-size: var(--text-2xl);
     margin-bottom: 8px;
     color: var(--text-primary);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
 }
 /* Company/School name */
 .timeline-item .company {
-    font-size: 17px;
-    font-weight: 600;
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-semibold);
     margin-bottom: 8px;
     color: var(--accent);
 }
@@ -1689,16 +1726,16 @@ a {
 .timeline-item .date {
     display: inline-block;
     color: var(--text-secondary);
-    font-size: 14px;
-    font-weight: 500;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
     margin-bottom: 15px;
     opacity: 0.8;
 }
 /* Description text */
 .timeline-item p {
     color: var(--text-secondary);
-    line-height: 1.8;
-    font-size: 15px;
+    line-height: var(--line-height-relaxed);
+    font-size: var(--text-base);
     margin-bottom: 0;
 }
 /* Achievement bullets */
@@ -2024,10 +2061,10 @@ a {
     top: 20px;
     right: 20px;
     font-size: 48px;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     color: var(--accent);
     opacity: 0.1;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
 }
 .lesson-card h3 {
     font-size: 24px;
@@ -2200,15 +2237,15 @@ a {
     }
 
     .hero-name {
-        font-size: 48px;
+        font-size: var(--text-4xl);
     }
 
     .hero-title {
-        font-size: 20px;
+        font-size: var(--text-xl);
     }
-    
+
     .hero-tagline {
-        font-size: 22px;
+        font-size: var(--text-2xl);
         flex-direction: column;
         gap: 5px;
     }
@@ -2283,7 +2320,7 @@ a {
     }
     
     .section-title {
-        font-size: 32px;
+        font-size: var(--text-3xl);
         margin-bottom: 30px;
     }
     
@@ -2536,50 +2573,50 @@ a {
     }
 
     .hero-content .greeting {
-        font-size: 20px;
+        font-size: var(--text-xl);
     }
 
     .hero-name {
-        font-size: 36px;
+        font-size: var(--text-3xl);
     }
 
     .hero-title {
-        font-size: 18px;
+        font-size: var(--text-lg);
     }
 
     .hero-tagline {
-        font-size: 18px;
+        font-size: var(--text-lg);
     }
-    
+
     .metric-card {
         padding: 20px 15px;
     }
-    
+
     .metric-value {
-        font-size: 36px;
+        font-size: var(--text-3xl);
     }
-    
+
     .metric-label {
-        font-size: 12px;
+        font-size: var(--text-xs);
     }
-    
+
     .status-item {
         padding: 12px 15px;
     }
-    
+
     .status-label {
-        font-size: 13px;
+        font-size: var(--text-sm);
     }
-    
+
     .status-value {
-        font-size: 14px;
+        font-size: var(--text-sm);
     }
-    
+
     .btn-primary-new,
     .btn-secondary-new,
     .btn-resume {
         padding: 14px 24px;
-        font-size: 15px;
+        font-size: var(--text-base);
     }
     
     .nav-bar {
@@ -2911,8 +2948,8 @@ a {
     border: none;
     border-radius: 12px;
     font-size: 18px;
-    font-weight: 600;
-    font-family: 'Inter', sans-serif;
+    font-weight: var(--font-weight-semibold);
+    font-family: var(--font-body);
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -3029,9 +3066,9 @@ a {
 }
 
 .footer-section h3 {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-heading);
     font-size: 24px;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     margin-bottom: 10px;
     color: var(--text-primary);
     letter-spacing: -0.5px;
