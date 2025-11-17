@@ -7,31 +7,67 @@
     // ============================================
     // LOAD PROJECTS FROM EXTERNAL FILE
     // ============================================
-    async function loadProjects() {
+    async function loadProjects(limit = 6) {
         const projectsContainer = document.getElementById('projectsContainer');
-        
+
         try {
             // Try to load from projects.json
             const response = await fetch('data/projects.json');
-            
+
             if (!response.ok) {
                 throw new Error('Failed to load projects');
             }
-            
+
             const projects = await response.json();
-            
+
             // Clear loading message
             projectsContainer.innerHTML = '';
-            
+
+            // Limit projects if specified
+            const displayProjects = limit ? projects.slice(0, limit) : projects;
+
             // Create project cards
-            projects.forEach(project => {
+            displayProjects.forEach(project => {
                 const card = createProjectCard(project);
                 projectsContainer.appendChild(card);
             });
-            
+
         } catch (error) {
             console.error('Error loading projects:', error);
             projectsContainer.innerHTML = '<p class="loading">Failed to load projects.</p>';
+        }
+    }
+
+    // ============================================
+    // LOAD ALL PROJECTS (for projects.html page)
+    // ============================================
+    async function loadAllProjects() {
+        const allProjectsContainer = document.getElementById('allProjectsContainer');
+
+        if (!allProjectsContainer) return;
+
+        try {
+            // Try to load from projects.json
+            const response = await fetch('data/projects.json');
+
+            if (!response.ok) {
+                throw new Error('Failed to load projects');
+            }
+
+            const projects = await response.json();
+
+            // Clear loading message
+            allProjectsContainer.innerHTML = '';
+
+            // Create all project cards
+            projects.forEach(project => {
+                const card = createProjectCard(project);
+                allProjectsContainer.appendChild(card);
+            });
+
+        } catch (error) {
+            console.error('Error loading projects:', error);
+            allProjectsContainer.innerHTML = '<p class="loading">Failed to load projects.</p>';
         }
     }
     
@@ -1111,7 +1147,12 @@
     // ============================================
     function init() {
         // Load projects from external file
-        loadProjects();
+        // Check if we're on the projects.html page
+        if (document.getElementById('allProjectsContainer')) {
+            loadAllProjects();
+        } else {
+            loadProjects(6); // Limit to 6 projects on the home page
+        }
 
         // Load certifications from external file
         loadCertifications();
