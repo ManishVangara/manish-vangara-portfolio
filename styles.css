@@ -1246,10 +1246,91 @@ a {
 }
 .section-quote:hover {
     transform: rotate(0deg) translateY(-2px);
-    box-shadow: 
+    box-shadow:
         0 4px 8px rgba(0, 0, 0, 0.15),
         0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* View All Projects Button */
+.view-all-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.btn-view-all {
+    padding: 16px 32px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent) 0%, #9333ea 100%);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.btn-view-all:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.btn-view-all .arrow-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.btn-view-all:hover .arrow-icon {
+    transform: translateX(5px);
+}
+
+/* Projects Page Specific Styles */
+.projects-header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.back-link:hover {
+    gap: 12px;
+    color: var(--accent-hover);
+}
+
+.back-link svg {
+    transition: transform 0.3s ease;
+}
+
+.back-link:hover svg {
+    transform: translateX(-3px);
+}
+
+.projects-subtitle {
+    color: var(--text-secondary);
+    font-size: var(--text-lg);
+    margin-top: 12px;
+    line-height: 1.6;
+}
+
 /* ============================================
    BUTTONS
    ============================================ */
@@ -2439,9 +2520,11 @@ a {
 
     .btn-primary-new,
     .btn-secondary-new,
-    .btn-resume {
+    .btn-resume,
+    .btn-view-all {
         width: 100%;
         justify-content: center;
+        padding: 14px 24px;
     }
     
     .hero {
@@ -2797,7 +2880,8 @@ a {
 
     .btn-primary-new,
     .btn-secondary-new,
-    .btn-resume {
+    .btn-resume,
+    .btn-view-all {
         padding: 14px 24px;
         font-size: var(--text-base);
     }
@@ -3490,7 +3574,8 @@ a {
 
     .btn-primary-new,
     .btn-resume,
-    .btn-secondary-new {
+    .btn-secondary-new,
+    .btn-view-all {
         padding: 14px 24px;
         font-size: var(--text-base);
     }
@@ -3681,7 +3766,8 @@ a {
 
     .btn-primary-new,
     .btn-resume,
-    .btn-secondary-new {
+    .btn-secondary-new,
+    .btn-view-all {
         padding: 12px 18px;
         font-size: var(--text-sm);
     }
@@ -3776,7 +3862,8 @@ a {
 
     .btn-primary-new,
     .btn-resume,
-    .btn-secondary-new {
+    .btn-secondary-new,
+    .btn-view-all {
         padding: 11px 16px;
         font-size: var(--text-sm);
     }
@@ -3937,7 +4024,8 @@ a {
     .btn-primary-new,
     .btn-resume,
     .btn-secondary-new,
-    .btn-email {
+    .btn-email,
+    .btn-view-all {
         min-height: 48px;
     }
 
