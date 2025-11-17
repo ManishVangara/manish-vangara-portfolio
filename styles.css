@@ -712,7 +712,7 @@ a {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 60px;
+    gap: 20px 60px; /* row-gap column-gap */
     flex-wrap: wrap;
 }
 
@@ -905,7 +905,6 @@ a {
     gap: 16px;
     flex: 0 0 55%;
     min-width: 400px;
-    margin-top: 30px;
 }
 .metric-card {
     background: var(--bg-card);
