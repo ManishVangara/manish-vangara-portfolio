@@ -451,13 +451,28 @@
     function createHobbyCard(hobby) {
         const card = document.createElement('div');
         card.className = 'hobby-card';
-        
+
+        // Create image HTML if image exists
+        let imageHTML = '';
+        if (hobby.image) {
+            imageHTML = `
+                <div class="hobby-image-container">
+                    <img src="${escapeHtml(hobby.image)}" alt="${escapeHtml(hobby.title)}" class="hobby-image" loading="lazy">
+                    <div class="hobby-icon-overlay">${escapeHtml(hobby.icon)}</div>
+                </div>
+            `;
+        } else {
+            imageHTML = `<div class="hobby-icon">${escapeHtml(hobby.icon)}</div>`;
+        }
+
         card.innerHTML = `
-            <div class="hobby-icon">${escapeHtml(hobby.icon)}</div>
-            <h3>${escapeHtml(hobby.title)}</h3>
-            <p>${escapeHtml(hobby.description)}</p>
+            ${imageHTML}
+            <div class="hobby-content">
+                <h3>${escapeHtml(hobby.title)}</h3>
+                <p>${escapeHtml(hobby.description)}</p>
+            </div>
         `;
-        
+
         return card;
     }
     
@@ -1205,11 +1220,22 @@
     // Count Up Animation for Metrics
     function initMetricsCounter() {
         const metrics = document.querySelectorAll('.metric-value');
-        
+
         const observerOptions = {
             threshold: 0.5
         };
-        
+
+        // Helper function to check if element is in viewport
+        function isInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1220,8 +1246,17 @@
                 }
             });
         }, observerOptions);
-        
-        metrics.forEach(metric => observer.observe(metric));
+
+        metrics.forEach(metric => {
+            // Check if metric is already visible on page load
+            if (isInViewport(metric)) {
+                const target = parseInt(metric.getAttribute('data-target'));
+                animateCounter(metric, target);
+            } else {
+                // Otherwise observe it
+                observer.observe(metric);
+            }
+        });
     }
     
     function animateCounter(element, target) {
@@ -1403,6 +1438,31 @@
     }
 
     // ============================================
+    // DOWNLOAD RESUME ANIMATION
+    // ============================================
+    function initDownloadResume() {
+        const downloadBtn = document.getElementById('downloadResumeBtn');
+
+        if (!downloadBtn) return;
+
+        downloadBtn.addEventListener('click', function(e) {
+            // Add downloading animation
+            this.classList.add('downloading');
+
+            // After animation completes, show checkmark
+            setTimeout(() => {
+                this.classList.remove('downloading');
+                this.classList.add('downloaded');
+
+                // Remove checkmark after 2 seconds
+                setTimeout(() => {
+                    this.classList.remove('downloaded');
+                }, 2000);
+            }, 1500);
+        });
+    }
+
+    // ============================================
     // INITIALIZE ALL FUNCTIONALITY
     // ============================================
     function init() {
@@ -1456,8 +1516,11 @@
 
         // Initialize back to top button
         initBackToTop();
+
+        // Initialize download resume animation
+        initDownloadResume();
     }
-    
+
     // ============================================
     // START APPLICATION
     // ============================================

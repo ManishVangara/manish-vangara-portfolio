@@ -2,31 +2,37 @@
   {
     "icon": "📊",
     "title": "Data Visualization",
-    "description": "Creating beautiful and insightful visualizations in my free time. Love experimenting with D3.js and creative chart designs."
+    "description": "Creating beautiful and insightful visualizations in my free time. Love experimenting with D3.js and creative chart designs.",
+    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&q=80"
   },
   {
     "icon": "🎮",
     "title": "Gaming",
-    "description": "Strategy games and puzzle solving. It's all about patterns and optimization - just like data science!"
+    "description": "Strategy games and puzzle solving. It's all about patterns and optimization - just like data science!",
+    "image": "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&h=600&fit=crop&q=80"
   },
   {
     "icon": "📚",
     "title": "Reading",
-    "description": "Tech blogs, research papers, and sci-fi novels. Always learning something new about AI and data science."
+    "description": "Tech blogs, research papers, and sci-fi novels. Always learning something new about AI and data science.",
+    "image": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=600&fit=crop&q=80"
   },
   {
     "icon": "🏃",
     "title": "Running",
-    "description": "Marathon runner tracking my progress with data. Nothing beats a morning run to clear the mind!"
+    "description": "Marathon runner tracking my progress with data. Nothing beats a morning run to clear the mind!",
+    "image": "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&h=600&fit=crop&q=80"
   },
   {
     "icon": "🎨",
     "title": "Creative Coding",
-    "description": "Building generative art with Python and exploring the intersection of art and algorithms."
+    "description": "Building generative art with Python and exploring the intersection of art and algorithms.",
+    "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=600&fit=crop&q=80"
   },
   {
     "icon": "☕️",
     "title": "Coffee Enthusiast",
-    "description": "Perfecting the art of brewing coffee. Data-driven approach to finding the perfect cup!"
+    "description": "Perfecting the art of brewing coffee. Data-driven approach to finding the perfect cup!",
+    "image": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop&q=80"
   }
 ]
