@@ -133,7 +133,7 @@
                     
                     <!-- Hero Content -->
                     <div class="hero-content">
-                        <!-- Left Side - Main Content -->
+                        <!-- Row 1: Content + Image -->
                         <div class="hero-left">
                             <p class="greeting animate-fade-in">Hi, I'm <span class="wave">👋</span></p>
                             <h1 class="hero-name">
@@ -148,56 +148,8 @@
                                 <span id="typewriter" class="typewriter"></span>
                                 <span class="cursor">|</span>
                             </div>
-
-                            <!-- Live Metrics -->
-                            <div class="hero-metrics">
-                                <div class="metric-card">
-                                    <div class="metric-icon">🎯</div>
-                                    <div class="metric-content">
-                                        <div class="metric-value" data-target="15">0</div>
-                                        <div class="metric-label">Projects Shipped</div>
-                                    </div>
-                                </div>
-                                <div class="metric-card">
-                                    <div class="metric-icon">💡</div>
-                                    <div class="metric-content">
-                                        <div class="metric-value" data-target="92">0</div>
-                                        <div class="metric-label">Avg Model Accuracy</div>
-                                    </div>
-                                </div>
-                                <div class="metric-card">
-                                    <div class="metric-icon">☕</div>
-                                    <div class="metric-content">
-                                        <div class="metric-value" data-target="1247">0</div>
-                                        <div class="metric-label">Coffees Consumed</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- CTA Buttons -->
-                            <div class="hero-cta">
-                                <a href="#projects" class="btn-primary-new">
-                                    <span>Explore My Work</span>
-                                    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                                    </svg>
-                                </a>
-                                <a href="./assets/resume.pdf" download="Manish_Vangara_Resume.pdf" class="btn-resume" id="downloadResumeBtn">
-                                    <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                        <polyline points="7 10 12 15 17 10"/>
-                                        <line x1="12" y1="15" x2="12" y2="3"/>
-                                    </svg>
-                                    <span>Download Resume</span>
-                                    <div class="download-progress"></div>
-                                </a>
-                                <a href="#story" class="btn-secondary-new">
-                                    <span>Read My Story</span>
-                                </a>
-                            </div>
                         </div>
 
-                        <!-- Right Side - Profile Image & Status -->
                         <div class="hero-right">
                             <div class="hero-profile-container">
                                 <div class="profile-decorative-shape shape-1"></div>
@@ -205,28 +157,74 @@
                                 <div class="profile-decorative-shape shape-3"></div>
                                 <img src="./assets/Picture1.png" alt="Manish Vangara" class="hero-profile-img">
                             </div>
+                        </div>
 
-                            <!-- Current Status -->
-                            <div class="current-status">
-                                <div class="status-item">
-                                    <span class="status-icon">📍</span>
-                                    <span class="status-label">Currently:</span>
-                                    <span class="status-value">Building ML systems that actually matter</span>
+                        <!-- Row 2: Metrics + Current Status -->
+                        <div class="hero-metrics">
+                            <div class="metric-card">
+                                <div class="metric-icon">🎯</div>
+                                <div class="metric-content">
+                                    <div class="metric-value" data-target="15">0</div>
+                                    <div class="metric-label">Projects Shipped</div>
                                 </div>
-                                <div class="status-item">
-                                    <span class="status-icon">💭</span>
-                                    <span class="status-label">Curious about:</span>
-                                    <span class="status-value">LLMs, RAG systems, and agentic AI</span>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">💡</div>
+                                <div class="metric-content">
+                                    <div class="metric-value" data-target="92">0</div>
+                                    <div class="metric-label">Avg Model Accuracy</div>
                                 </div>
-                                <div class="status-item">
-                                    <span class="status-icon">🎵</span>
-                                    <span class="status-label">Coding to:</span>
-                                    <span class="status-value">Lo-fi beats & synthwave</span>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-icon">☕</div>
+                                <div class="metric-content">
+                                    <div class="metric-value" data-target="1247">0</div>
+                                    <div class="metric-label">Coffees Consumed</div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Scroll Indicator -->
+                        <div class="current-status">
+                            <div class="status-item">
+                                <span class="status-icon">📍</span>
+                                <span class="status-label">Currently:</span>
+                                <span class="status-value">Building ML systems that actually matter</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-icon">💭</span>
+                                <span class="status-label">Curious about:</span>
+                                <span class="status-value">LLMs, RAG systems, and agentic AI</span>
+                            </div>
+                            <div class="status-item">
+                                <span class="status-icon">🎵</span>
+                                <span class="status-label">Coding to:</span>
+                                <span class="status-value">Lo-fi beats & synthwave</span>
+                            </div>
+                        </div>
+
+                        <!-- Row 3: CTAs -->
+                        <div class="hero-cta">
+                            <a href="#projects" class="btn-primary-new">
+                                <span>Explore My Work</span>
+                                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                            <a href="./assets/resume.pdf" download="Manish_Vangara_Resume.pdf" class="btn-resume" id="downloadResumeBtn">
+                                <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="7 10 12 15 17 10"/>
+                                    <line x1="12" y1="15" x2="12" y2="3"/>
+                                </svg>
+                                <span>Download Resume</span>
+                                <div class="download-progress"></div>
+                            </a>
+                            <a href="#story" class="btn-secondary-new">
+                                <span>Read My Story</span>
+                            </a>
+                        </div>
+
+                        <!-- Row 4: Scroll Indicator -->
                         <div class="scroll-indicator-new">
                             <span class="scroll-text">Scroll to discover</span>
                             <div class="scroll-arrow">↓</div>
