@@ -877,7 +877,7 @@ a {
     font-size: var(--text-3xl);
     font-weight: var(--font-weight-semibold);
     color: var(--text-primary);
-    margin-bottom: 50px;
+    margin-bottom: 0;
     min-height: 48px;
     display: flex;
     align-items: center;
@@ -905,6 +905,7 @@ a {
     gap: 16px;
     flex: 0 0 55%;
     min-width: 400px;
+    margin-top: 30px;
 }
 .metric-card {
     background: var(--bg-card);
@@ -1012,6 +1013,7 @@ a {
     flex-wrap: wrap;
     flex: 0 0 55%;
     min-width: 400px;
+    margin-top: 30px;
 }
 .btn-primary-new,
 .btn-secondary-new {
