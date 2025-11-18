@@ -1,10 +1,10 @@
 [
   {
     "title": "Customer Churn Prediction",
-    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+    "image": "../assets/projects/customer_churn.png",
     "techStack": "Python • Scikit-learn • XGBoost • AWS",
     "description": "Developed a machine learning model to predict customer churn with 92% accuracy, enabling proactive retention strategies that reduced churn by 25% and saved $2M annually.",
-    "link": "https://github.com/yourusername/churn-prediction"
+    "link": "../assets/projects/Multi_Engine_STT_Report_Notion.html"
   },
   {
     "title": "Real-Time Analytics Dashboard",
