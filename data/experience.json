@@ -1,23 +1,30 @@
 [
   {
-    "title": "Senior Data Scientist",
-    "company": "Tech Company Inc.",
-    "date": "Jan 2022 - Present",
+    "title": "Data Scientist (AI/ML)",
+    "company": "Halliburton",
+    "date": "Aug 2024 - Present",
     "location": "San Francisco, CA",
-    "description": "Leading a team of 5 data scientists in developing ML models for customer behavior prediction. Implemented automated ML pipelines that reduced model deployment time by 60%. Collaborated with product teams to integrate ML-driven features serving 2M+ users."
+    "description": "I built ML and agentic AI systems that transformed drilling operations cutting NPT by 15%, improving efficiency 20%, and saving $1M a year. I also delivered real-time analytics and autonomous workflows processing 10K+ events/min with 99.7% uptime, reducing manual work by 40% for 200+ engineers."
   },
   {
-    "title": "Data Engineer",
-    "company": "Growth Startup LLC",
-    "date": "Jun 2020 - Dec 2021",
-    "location": "Remote",
-    "description": "Built and maintained scalable data infrastructure processing terabytes of data daily. Optimized data pipelines resulting in 40% cost reduction and 3x performance improvement. Designed data warehouse architecture supporting real-time analytics for business teams."
+    "title": "Data Scientist",
+    "company": "University of Central Oklahoma",
+    "date": "Jun 2024 - Aug 2024",
+    "location": "Edmond, OK",
+    "description": "Built an end-to-end student analytics platform, automating ETL pipelines, modeling 15K+ records with clustering, regression, and decision trees (88% accuracy), deploying secured ML APIs, and delivering real-time dashboards that cut reporting delays by 25% and empowered advisors with actionable insights."
   },
   {
-    "title": "Junior Data Analyst",
-    "company": "Analytics Solutions Co.",
-    "date": "Jul 2018 - May 2020",
-    "location": "New York, NY",
-    "description": "Performed statistical analysis and created visualizations to support business decisions. Developed automated reporting systems that saved 20 hours per week. Collaborated with stakeholders to define KPIs and metrics tracking business performance."
+    "title": "Data Scientist",
+    "company": "Vertocity",
+    "date": "Jan 2020 - May 2023",
+    "location": "Hyderabad, India",
+    "description": "Leveraged decision trees, random forests, SVM, and rigorous statistical validation to identify at-risk students and deliver insights that informed targeted interventions, ultimately boosting completion rates by 8% and guiding key product strategies."
+  },
+  {
+    "title": "Data Analyst Intern",
+    "company": "Vertocity",
+    "date": "May 2019 - Aug 2019",
+    "location": "Hyderabad, India",
+    "description": "Built Python/SQL data pipelines, early predictive model prototypes, and Tableau dashboards that analyzed multi-platform student performance data and improved early intervention rates by 5% through clearer, data-driven insights."
   }
 ]
