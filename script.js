@@ -980,8 +980,10 @@
             let dataPoints = [];
             let networkNodes = [];
             let floatingNumbers = [];
-            let mouse = { x: 0, y: 0 };
+            let ripples = [];
+            let mouse = { x: 0, y: 0, vx: 0, vy: 0, px: 0, py: 0 };
             let animationFrameId;
+            let isMouseActive = false;
             
             // Data Science Symbols
             const dataSymbols = ['Σ', 'π', 'σ', 'μ', 'θ', 'λ', 'α', 'β', '∞', '≈', '≠', '≤', '≥'];
@@ -1008,14 +1010,26 @@
                 this.x += this.speedX + wobbleOffset;
                 this.y += this.speedY;
                 
-                // Mouse interaction - particles are repelled slightly
-                const dx = mouse.x - this.x;
-                const dy = mouse.y - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 150 && distance > 0) {
-                    const force = (150 - distance) / 150 * 0.5;
-                    this.x -= (dx / distance) * force;
-                    this.y -= (dy / distance) * force;
+                // Enhanced mouse interaction - particles are repelled and affected by velocity
+                if (isMouseActive) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 200 && distance > 0) {
+                        const force = (200 - distance) / 200;
+                        const repulsionForce = force * 0.8;
+                        const velocityForce = Math.sqrt(mouse.vx * mouse.vx + mouse.vy * mouse.vy) * 0.1;
+                        
+                        // Repulsion from mouse
+                        this.x -= (dx / distance) * repulsionForce;
+                        this.y -= (dy / distance) * repulsionForce;
+                        
+                        // Affected by mouse velocity (creates trailing effect)
+                        if (velocityForce > 0.1) {
+                            this.x += mouse.vx * velocityForce * 0.3;
+                            this.y += mouse.vy * velocityForce * 0.3;
+                        }
+                    }
                 }
                 
                 // Wrap around edges horizontally
@@ -1091,14 +1105,26 @@
                 this.x += this.speedX + wobbleOffset;
                 this.y += this.speedY;
                 
-                // Mouse interaction
-                const dx = mouse.x - this.x;
-                const dy = mouse.y - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < 200 && distance > 0) {
-                    const force = (200 - distance) / 200 * 0.3;
-                    this.x -= (dx / distance) * force;
-                    this.y -= (dy / distance) * force;
+                // Enhanced mouse interaction for blobs
+                if (isMouseActive) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 250 && distance > 0) {
+                        const force = (250 - distance) / 250;
+                        const repulsionForce = force * 0.4;
+                        const velocityForce = Math.sqrt(mouse.vx * mouse.vx + mouse.vy * mouse.vy) * 0.12;
+                        
+                        // Repulsion from mouse
+                        this.x -= (dx / distance) * repulsionForce;
+                        this.y -= (dy / distance) * repulsionForce;
+                        
+                        // Affected by mouse velocity
+                        if (velocityForce > 0.1) {
+                            this.x += mouse.vx * velocityForce * 0.5;
+                            this.y += mouse.vy * velocityForce * 0.5;
+                        }
+                    }
                 }
                 
                 // Wrap around edges
@@ -1170,14 +1196,29 @@
                     this.x += this.speedX;
                     this.y += this.speedY;
                     
-                    // Mouse interaction
-                    const dx = mouse.x - this.x;
-                    const dy = mouse.y - this.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 120 && distance > 0) {
-                        const force = (120 - distance) / 120 * 0.4;
-                        this.x -= (dx / distance) * force;
-                        this.y -= (dy / distance) * force;
+                    // Enhanced mouse interaction for network nodes
+                    if (isMouseActive) {
+                        const dx = mouse.x - this.x;
+                        const dy = mouse.y - this.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < 180 && distance > 0) {
+                            const force = (180 - distance) / 180;
+                            const repulsionForce = force * 0.6;
+                            const velocityForce = Math.sqrt(mouse.vx * mouse.vx + mouse.vy * mouse.vy) * 0.15;
+                            
+                            // Repulsion from mouse
+                            this.x -= (dx / distance) * repulsionForce;
+                            this.y -= (dy / distance) * repulsionForce;
+                            
+                            // Affected by mouse velocity
+                            if (velocityForce > 0.1) {
+                                this.x += mouse.vx * velocityForce * 0.4;
+                                this.y += mouse.vy * velocityForce * 0.4;
+                            }
+                            
+                            // Increase pulse when near mouse
+                            this.pulseSpeed += force * 0.01;
+                        }
                     }
                     
                     if (this.x > canvas.width) this.x = 0;
@@ -1405,11 +1446,119 @@
                 createChartBars();
             }
             
-            // Track mouse position for interactive effect
+            // Ripple effect class for click interactions
+            class Ripple {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.radius = 0;
+                    this.maxRadius = 200;
+                    this.opacity = 0.6;
+                    this.speed = 3;
+                }
+                
+                update() {
+                    this.radius += this.speed;
+                    this.opacity -= 0.02;
+                    return this.radius < this.maxRadius && this.opacity > 0;
+                }
+                
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.opacity;
+                    const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
+                    gradient.addColorStop(0, 'rgba(59, 130, 246, 0.4)');
+                    gradient.addColorStop(0.5, 'rgba(147, 51, 234, 0.2)');
+                    gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+                    ctx.fillStyle = gradient;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Outer ring
+                    ctx.strokeStyle = `rgba(59, 130, 246, ${this.opacity * 0.5})`;
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            }
+            
+            // Track mouse position and velocity for interactive effect
             canvas.addEventListener('mousemove', (e) => {
                 const rect = canvas.getBoundingClientRect();
+                mouse.px = mouse.x;
+                mouse.py = mouse.y;
                 mouse.x = e.clientX - rect.left;
                 mouse.y = e.clientY - rect.top;
+                mouse.vx = mouse.x - mouse.px;
+                mouse.vy = mouse.y - mouse.py;
+                isMouseActive = true;
+            });
+            
+            canvas.addEventListener('mouseleave', () => {
+                isMouseActive = false;
+                mouse.vx = 0;
+                mouse.vy = 0;
+            });
+            
+            // Click interaction - create ripple and burst particles
+            canvas.addEventListener('click', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const clickY = e.clientY - rect.top;
+                
+                // Create ripple
+                ripples.push(new Ripple(clickX, clickY));
+                
+                // Create burst of particles
+                for (let i = 0; i < 8; i++) {
+                    const angle = (Math.PI * 2 / 8) * i;
+                    const speed = Math.random() * 3 + 2;
+                    const burstParticle = new Particle();
+                    burstParticle.x = clickX;
+                    burstParticle.y = clickY;
+                    burstParticle.speedX = Math.cos(angle) * speed;
+                    burstParticle.speedY = Math.sin(angle) * speed - 1; // Still float up
+                    burstParticle.size = Math.random() * 3 + 2;
+                    burstParticle.opacity = 0.8;
+                    particles.push(burstParticle);
+                }
+            });
+            
+            // Touch support for mobile
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                const touchX = touch.clientX - rect.left;
+                const touchY = touch.clientY - rect.top;
+                
+                mouse.x = touchX;
+                mouse.y = touchY;
+                isMouseActive = true;
+                
+                // Create ripple on touch
+                ripples.push(new Ripple(touchX, touchY));
+            });
+            
+            canvas.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                mouse.px = mouse.x;
+                mouse.py = mouse.y;
+                mouse.x = touch.clientX - rect.left;
+                mouse.y = touch.clientY - rect.top;
+                mouse.vx = mouse.x - mouse.px;
+                mouse.vy = mouse.y - mouse.py;
+            });
+            
+            canvas.addEventListener('touchend', () => {
+                isMouseActive = false;
+                mouse.vx = 0;
+                mouse.vy = 0;
             });
             
             // Initialize canvas and particles
@@ -1486,6 +1635,13 @@
             function animate() {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 
+                // Update and draw ripples
+                ripples = ripples.filter(ripple => {
+                    const alive = ripple.update();
+                    if (alive) ripple.draw();
+                    return alive;
+                });
+                
                 // Draw blobs first (background layer)
                 blobs.forEach(blob => {
                     blob.update();
@@ -1518,6 +1674,24 @@
                 
                 // Connect elements (network connections)
                 connectParticles();
+                
+                // Draw mouse interaction area (subtle glow)
+                if (isMouseActive) {
+                    ctx.save();
+                    const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 150);
+                    gradient.addColorStop(0, 'rgba(59, 130, 246, 0.1)');
+                    gradient.addColorStop(0.5, 'rgba(147, 51, 234, 0.05)');
+                    gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+                    ctx.fillStyle = gradient;
+                    ctx.beginPath();
+                    ctx.arc(mouse.x, mouse.y, 150, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+                
+                // Decay mouse velocity
+                mouse.vx *= 0.9;
+                mouse.vy *= 0.9;
                 
                 animationFrameId = requestAnimationFrame(animate);
             }
