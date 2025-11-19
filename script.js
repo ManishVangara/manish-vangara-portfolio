@@ -979,25 +979,6 @@
         let mouse = { x: 0, y: 0 };
         let animationFrameId;
         
-        // Set canvas size
-        function resizeCanvas() {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-            // Recreate particles on resize
-            createParticles();
-            createBlobs();
-        }
-        
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-        
-        // Track mouse position for interactive effect
-        canvas.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            mouse.x = e.clientX - rect.left;
-            mouse.y = e.clientY - rect.top;
-        });
-        
         // Particle class - floats upward (antigravity)
         class Particle {
             constructor() {
@@ -1151,8 +1132,25 @@
             }
         }
         
-        createParticles();
-        createBlobs();
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            // Recreate particles on resize
+            createParticles();
+            createBlobs();
+        }
+        
+        // Track mouse position for interactive effect
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+        
+        // Initialize canvas and particles
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
         
         // Connect particles with lines (only nearby ones)
         function connectParticles() {
