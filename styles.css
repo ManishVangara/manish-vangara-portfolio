@@ -699,6 +699,7 @@ a {
     transition: opacity 0.3s ease;
     filter: blur(0.3px);
     will-change: transform;
+    cursor: crosshair;
 }
 .data-grid-overlay {
     position: absolute;
