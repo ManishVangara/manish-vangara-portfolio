@@ -973,14 +973,21 @@
                 return;
             }
             
-            console.log('Initializing antigravity background effect');
+            console.log('Initializing data science antigravity background effect');
             const ctx = canvas.getContext('2d');
             let particles = [];
             let blobs = [];
+            let dataPoints = [];
+            let networkNodes = [];
+            let floatingNumbers = [];
             let mouse = { x: 0, y: 0 };
             let animationFrameId;
             
-            // Particle class - floats upward (antigravity)
+            // Data Science Symbols
+            const dataSymbols = ['Σ', 'π', 'σ', 'μ', 'θ', 'λ', 'α', 'β', '∞', '≈', '≠', '≤', '≥'];
+            const dataMetrics = ['92%', '0.95', 'R²', 'p<0.01', 'F1', 'AUC', 'MAE', 'RMSE'];
+            
+            // Particle class - floats upward (antigravity) - now data points
             class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
@@ -1025,6 +1032,16 @@
             draw() {
                 ctx.save();
                 ctx.globalAlpha = this.opacity;
+                
+                // Draw as data point with connection line
+                ctx.strokeStyle = `rgba(59, 130, 246, ${this.opacity * 0.3})`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x, this.y + 20);
+                ctx.stroke();
+                
+                // Draw point
                 ctx.fillStyle = `rgba(59, 130, 246, 1)`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
@@ -1115,9 +1132,149 @@
             }
             }
             
+            // Network Node class - represents neural network nodes
+            class NetworkNode {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = canvas.height + Math.random() * 400;
+                    this.size = Math.random() * 8 + 4;
+                    this.speedX = (Math.random() - 0.5) * 0.15;
+                    this.speedY = -(Math.random() * 0.4 + 0.2);
+                    this.opacity = Math.random() * 0.3 + 0.2;
+                    this.pulse = Math.random() * Math.PI * 2;
+                    this.pulseSpeed = Math.random() * 0.03 + 0.02;
+                }
+                
+                update() {
+                    this.pulse += this.pulseSpeed;
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    
+                    // Mouse interaction
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 120 && distance > 0) {
+                        const force = (120 - distance) / 120 * 0.4;
+                        this.x -= (dx / distance) * force;
+                        this.y -= (dy / distance) * force;
+                    }
+                    
+                    if (this.x > canvas.width) this.x = 0;
+                    if (this.x < 0) this.x = canvas.width;
+                    if (this.y < -50) {
+                        this.y = canvas.height + 50;
+                        this.x = Math.random() * canvas.width;
+                    }
+                }
+                
+                draw() {
+                    ctx.save();
+                    const pulseSize = this.size + Math.sin(this.pulse) * 2;
+                    ctx.globalAlpha = this.opacity;
+                    
+                    // Draw node with pulsing effect
+                    ctx.fillStyle = `rgba(147, 51, 234, 1)`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, pulseSize, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Outer ring
+                    ctx.strokeStyle = `rgba(147, 51, 234, ${this.opacity * 0.5})`;
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, pulseSize + 3, 0, Math.PI * 2);
+                    ctx.stroke();
+                    
+                    ctx.restore();
+                }
+            }
+            
+            // Floating Number class - statistical metrics
+            class FloatingNumber {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = canvas.height + Math.random() * 300;
+                    this.text = dataMetrics[Math.floor(Math.random() * dataMetrics.length)];
+                    this.speedX = (Math.random() - 0.5) * 0.2;
+                    this.speedY = -(Math.random() * 0.3 + 0.15);
+                    this.opacity = Math.random() * 0.4 + 0.3;
+                    this.rotation = (Math.random() - 0.5) * 0.1;
+                    this.rotationSpeed = (Math.random() - 0.5) * 0.01;
+                    this.size = Math.random() * 6 + 10;
+                }
+                
+                update() {
+                    this.rotation += this.rotationSpeed;
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    
+                    if (this.x > canvas.width + 50) this.x = -50;
+                    if (this.x < -50) this.x = canvas.width + 50;
+                    if (this.y < -50) {
+                        this.y = canvas.height + 50;
+                        this.x = Math.random() * canvas.width;
+                        this.text = dataMetrics[Math.floor(Math.random() * dataMetrics.length)];
+                    }
+                }
+                
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.opacity;
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.rotation);
+                    ctx.fillStyle = `rgba(16, 185, 129, 1)`;
+                    ctx.font = `${this.size}px 'Inter', monospace`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(this.text, 0, 0);
+                    ctx.restore();
+                }
+            }
+            
+            // Chart Bar class - mini bar chart elements
+            class ChartBar {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = canvas.height + Math.random() * 200;
+                    this.width = Math.random() * 15 + 8;
+                    this.height = Math.random() * 40 + 20;
+                    this.speedX = (Math.random() - 0.5) * 0.2;
+                    this.speedY = -(Math.random() * 0.4 + 0.2);
+                    this.opacity = Math.random() * 0.25 + 0.15;
+                    this.colorIndex = Math.floor(Math.random() * 3);
+                }
+                
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    
+                    if (this.x > canvas.width + 50) this.x = -50;
+                    if (this.x < -50) this.x = canvas.width + 50;
+                    if (this.y < -this.height) {
+                        this.y = canvas.height + this.height;
+                        this.x = Math.random() * canvas.width;
+                        this.height = Math.random() * 40 + 20;
+                    }
+                }
+                
+                draw() {
+                    ctx.save();
+                    ctx.globalAlpha = this.opacity;
+                    const colors = [
+                        'rgba(59, 130, 246, 1)',   // Blue
+                        'rgba(147, 51, 234, 1)',   // Purple
+                        'rgba(16, 185, 129, 1)'    // Green
+                    ];
+                    ctx.fillStyle = colors[this.colorIndex];
+                    ctx.fillRect(this.x - this.width/2, this.y - this.height, this.width, this.height);
+                    ctx.restore();
+                }
+            }
+            
             // Create particles
             function createParticles() {
-                const particleCount = Math.min(150, Math.floor(canvas.width / 8));
+                const particleCount = Math.min(120, Math.floor(canvas.width / 10));
                 particles = [];
                 for (let i = 0; i < particleCount; i++) {
                     particles.push(new Particle());
@@ -1126,10 +1283,37 @@
             
             // Create blobs
             function createBlobs() {
-                const blobCount = Math.min(8, Math.floor(canvas.width / 200));
+                const blobCount = Math.min(6, Math.floor(canvas.width / 250));
                 blobs = [];
                 for (let i = 0; i < blobCount; i++) {
                     blobs.push(new Blob());
+                }
+            }
+            
+            // Create network nodes
+            function createNetworkNodes() {
+                const nodeCount = Math.min(25, Math.floor(canvas.width / 50));
+                networkNodes = [];
+                for (let i = 0; i < nodeCount; i++) {
+                    networkNodes.push(new NetworkNode());
+                }
+            }
+            
+            // Create floating numbers
+            function createFloatingNumbers() {
+                const numberCount = Math.min(15, Math.floor(canvas.width / 100));
+                floatingNumbers = [];
+                for (let i = 0; i < numberCount; i++) {
+                    floatingNumbers.push(new FloatingNumber());
+                }
+            }
+            
+            // Create chart bars
+            function createChartBars() {
+                const barCount = Math.min(20, Math.floor(canvas.width / 80));
+                dataPoints = [];
+                for (let i = 0; i < barCount; i++) {
+                    dataPoints.push(new ChartBar());
                 }
             }
             
@@ -1137,9 +1321,12 @@
             function resizeCanvas() {
                 canvas.width = canvas.offsetWidth;
                 canvas.height = canvas.offsetHeight;
-                // Recreate particles on resize
+                // Recreate all elements on resize
                 createParticles();
                 createBlobs();
+                createNetworkNodes();
+                createFloatingNumbers();
+                createChartBars();
             }
             
             // Track mouse position for interactive effect
@@ -1155,6 +1342,7 @@
             
             // Connect particles with lines (only nearby ones)
             function connectParticles() {
+                // Connect data points
                 for (let i = 0; i < particles.length; i++) {
                     for (let j = i + 1; j < particles.length; j++) {
                         const dx = particles[i].x - particles[j].x;
@@ -1162,12 +1350,31 @@
                         const distance = Math.sqrt(dx * dx + dy * dy);
                         
                         if (distance < 100) {
-                            const opacity = (1 - distance / 100) * 0.15;
+                            const opacity = (1 - distance / 100) * 0.12;
                             ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
                             ctx.lineWidth = 0.5;
                             ctx.beginPath();
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                
+                // Connect network nodes (neural network style)
+                for (let i = 0; i < networkNodes.length; i++) {
+                    for (let j = i + 1; j < networkNodes.length; j++) {
+                        const dx = networkNodes[i].x - networkNodes[j].x;
+                        const dy = networkNodes[i].y - networkNodes[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 150) {
+                            const opacity = (1 - distance / 150) * 0.2;
+                            ctx.strokeStyle = `rgba(147, 51, 234, ${opacity})`;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(networkNodes[i].x, networkNodes[i].y);
+                            ctx.lineTo(networkNodes[j].x, networkNodes[j].y);
                             ctx.stroke();
                         }
                     }
@@ -1184,13 +1391,31 @@
                     blob.draw();
                 });
                 
-                // Draw particles
+                // Draw chart bars (data visualization layer)
+                dataPoints.forEach(bar => {
+                    bar.update();
+                    bar.draw();
+                });
+                
+                // Draw network nodes
+                networkNodes.forEach(node => {
+                    node.update();
+                    node.draw();
+                });
+                
+                // Draw particles (data points)
                 particles.forEach(particle => {
                     particle.update();
                     particle.draw();
                 });
                 
-                // Connect particles
+                // Draw floating numbers (metrics)
+                floatingNumbers.forEach(number => {
+                    number.update();
+                    number.draw();
+                });
+                
+                // Connect elements (network connections)
                 connectParticles();
                 
                 animationFrameId = requestAnimationFrame(animate);
