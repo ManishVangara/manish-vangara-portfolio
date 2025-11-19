@@ -1033,29 +1033,41 @@
                 ctx.save();
                 ctx.globalAlpha = this.opacity;
                 
-                // Draw as data point with connection line
-                ctx.strokeStyle = `rgba(59, 130, 246, ${this.opacity * 0.3})`;
-                ctx.lineWidth = 1;
+                // Draw subtle connection line (data point trail)
+                const lineLength = 15 + Math.sin(this.wobble) * 5;
+                const gradient = ctx.createLinearGradient(this.x, this.y, this.x, this.y + lineLength);
+                gradient.addColorStop(0, `rgba(59, 130, 246, ${this.opacity * 0.4})`);
+                gradient.addColorStop(1, `rgba(59, 130, 246, 0)`);
+                ctx.strokeStyle = gradient;
+                ctx.lineWidth = 1.5;
                 ctx.beginPath();
                 ctx.moveTo(this.x, this.y);
-                ctx.lineTo(this.x, this.y + 20);
+                ctx.lineTo(this.x, this.y + lineLength);
                 ctx.stroke();
                 
-                // Draw point
-                ctx.fillStyle = `rgba(59, 130, 246, 1)`;
+                // Draw point with gradient fill
+                const pointGradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+                pointGradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+                pointGradient.addColorStop(0.5, 'rgba(59, 130, 246, 1)');
+                pointGradient.addColorStop(1, 'rgba(59, 130, 246, 0.6)');
+                ctx.fillStyle = pointGradient;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
                 
-                // Add glow effect
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = 'rgba(59, 130, 246, 0.5)';
-                ctx.fill();
+                // Outer glow ring
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = 'rgba(59, 130, 246, 0.6)';
+                ctx.strokeStyle = `rgba(59, 130, 246, ${this.opacity * 0.3})`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size + 2, 0, Math.PI * 2);
+                ctx.stroke();
                 ctx.restore();
             }
             }
             
-            // Blob class - larger floating shapes
+            // Blob class - larger floating shapes (data clusters)
             class Blob {
             constructor() {
                 this.x = Math.random() * canvas.width;
@@ -1063,11 +1075,12 @@
                 this.size = Math.random() * 80 + 40;
                 this.speedX = (Math.random() - 0.5) * 0.2;
                 this.speedY = -(Math.random() * 0.3 + 0.2);
-                this.opacity = Math.random() * 0.15 + 0.05;
+                this.opacity = Math.random() * 0.12 + 0.05;
                 this.wobble = Math.random() * Math.PI * 2;
                 this.wobbleSpeed = Math.random() * 0.01 + 0.005;
                 this.rotation = Math.random() * Math.PI * 2;
                 this.rotationSpeed = (Math.random() - 0.5) * 0.01;
+                this.colorHue = Math.random() * 60 + 200; // Blue to purple range
             }
             
             update() {
@@ -1100,16 +1113,15 @@
             
             draw() {
                 ctx.save();
-                ctx.globalAlpha = this.opacity;
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.rotation);
                 
-                // Create organic blob shape
+                // Create organic blob shape with more points for smoother look
                 ctx.beginPath();
-                const points = 8;
+                const points = 12;
                 for (let i = 0; i < points; i++) {
                     const angle = (i / points) * Math.PI * 2;
-                    const radius = this.size + Math.sin(this.wobble * 2 + i) * 10;
+                    const radius = this.size + Math.sin(this.wobble * 2 + i) * 12 + Math.cos(this.wobble * 1.5 + i) * 8;
                     const x = Math.cos(angle) * radius;
                     const y = Math.sin(angle) * radius;
                     if (i === 0) {
@@ -1120,12 +1132,20 @@
                 }
                 ctx.closePath();
                 
-                // Gradient fill
-                const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size);
-                gradient.addColorStop(0, 'rgba(59, 130, 246, 0.3)');
-                gradient.addColorStop(0.5, 'rgba(147, 51, 234, 0.2)');
-                gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+                // Multi-color gradient fill (data cluster effect)
+                const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size * 1.5);
+                const hue1 = this.colorHue;
+                const hue2 = (this.colorHue + 30) % 360;
+                gradient.addColorStop(0, `hsla(${hue1}, 70%, 60%, ${this.opacity * 2})`);
+                gradient.addColorStop(0.4, `hsla(${hue2}, 65%, 55%, ${this.opacity * 1.5})`);
+                gradient.addColorStop(0.7, `hsla(${hue1}, 60%, 50%, ${this.opacity * 0.8})`);
+                gradient.addColorStop(1, `hsla(${hue1}, 50%, 45%, 0)`);
                 ctx.fillStyle = gradient;
+                ctx.fill();
+                
+                // Outer glow
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = `hsla(${hue1}, 70%, 60%, ${this.opacity * 0.3})`;
                 ctx.fill();
                 
                 ctx.restore();
@@ -1171,20 +1191,34 @@
                 draw() {
                     ctx.save();
                     const pulseSize = this.size + Math.sin(this.pulse) * 2;
-                    ctx.globalAlpha = this.opacity;
+                    const pulseOpacity = this.opacity + Math.sin(this.pulse) * 0.1;
+                    ctx.globalAlpha = pulseOpacity;
                     
-                    // Draw node with pulsing effect
-                    ctx.fillStyle = `rgba(147, 51, 234, 1)`;
+                    // Outer glow ring (animated)
+                    const outerRing = pulseSize + 5 + Math.sin(this.pulse * 1.5) * 2;
+                    const ringGradient = ctx.createRadialGradient(this.x, this.y, pulseSize, this.x, this.y, outerRing);
+                    ringGradient.addColorStop(0, `rgba(147, 51, 234, ${pulseOpacity * 0.3})`);
+                    ringGradient.addColorStop(1, 'rgba(147, 51, 234, 0)');
+                    ctx.fillStyle = ringGradient;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, outerRing, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Draw node with gradient fill
+                    const nodeGradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, pulseSize);
+                    nodeGradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
+                    nodeGradient.addColorStop(0.4, 'rgba(147, 51, 234, 1)');
+                    nodeGradient.addColorStop(1, 'rgba(147, 51, 234, 0.7)');
+                    ctx.fillStyle = nodeGradient;
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, pulseSize, 0, Math.PI * 2);
                     ctx.fill();
                     
-                    // Outer ring
-                    ctx.strokeStyle = `rgba(147, 51, 234, ${this.opacity * 0.5})`;
-                    ctx.lineWidth = 1;
+                    // Inner highlight
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
                     ctx.beginPath();
-                    ctx.arc(this.x, this.y, pulseSize + 3, 0, Math.PI * 2);
-                    ctx.stroke();
+                    ctx.arc(this.x - pulseSize * 0.3, this.y - pulseSize * 0.3, pulseSize * 0.3, 0, Math.PI * 2);
+                    ctx.fill();
                     
                     ctx.restore();
                 }
@@ -1220,11 +1254,30 @@
                 
                 draw() {
                     ctx.save();
-                    ctx.globalAlpha = this.opacity;
                     ctx.translate(this.x, this.y);
                     ctx.rotate(this.rotation);
-                    ctx.fillStyle = `rgba(16, 185, 129, 1)`;
-                    ctx.font = `${this.size}px 'Inter', monospace`;
+                    
+                    // Text shadow/glow
+                    ctx.shadowBlur = 8;
+                    ctx.shadowColor = 'rgba(16, 185, 129, 0.5)';
+                    ctx.shadowOffsetX = 0;
+                    ctx.shadowOffsetY = 0;
+                    
+                    // Background circle for better visibility
+                    ctx.globalAlpha = this.opacity * 0.2;
+                    ctx.fillStyle = 'rgba(16, 185, 129, 1)';
+                    ctx.beginPath();
+                    ctx.arc(0, 0, this.size * 0.8, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    // Text with gradient
+                    ctx.globalAlpha = this.opacity;
+                    const textGradient = ctx.createLinearGradient(-this.size/2, 0, this.size/2, 0);
+                    textGradient.addColorStop(0, 'rgba(16, 185, 129, 1)');
+                    textGradient.addColorStop(0.5, 'rgba(5, 150, 105, 1)');
+                    textGradient.addColorStop(1, 'rgba(16, 185, 129, 1)');
+                    ctx.fillStyle = textGradient;
+                    ctx.font = `bold ${this.size}px 'Inter', monospace`;
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
                     ctx.fillText(this.text, 0, 0);
@@ -1260,14 +1313,37 @@
                 
                 draw() {
                     ctx.save();
-                    ctx.globalAlpha = this.opacity;
+                    const barX = this.x - this.width/2;
+                    const barY = this.y - this.height;
+                    
+                    // Shadow
+                    ctx.shadowBlur = 6;
+                    ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+                    ctx.shadowOffsetY = 2;
+                    
+                    // Bar gradient
                     const colors = [
-                        'rgba(59, 130, 246, 1)',   // Blue
-                        'rgba(147, 51, 234, 1)',   // Purple
-                        'rgba(16, 185, 129, 1)'    // Green
+                        ['rgba(59, 130, 246, 1)', 'rgba(37, 99, 235, 1)'],   // Blue gradient
+                        ['rgba(147, 51, 234, 1)', 'rgba(126, 34, 206, 1)'],   // Purple gradient
+                        ['rgba(16, 185, 129, 1)', 'rgba(5, 150, 105, 1)']     // Green gradient
                     ];
-                    ctx.fillStyle = colors[this.colorIndex];
-                    ctx.fillRect(this.x - this.width/2, this.y - this.height, this.width, this.height);
+                    const gradient = ctx.createLinearGradient(barX, barY, barX, barY + this.height);
+                    gradient.addColorStop(0, colors[this.colorIndex][0]);
+                    gradient.addColorStop(1, colors[this.colorIndex][1]);
+                    
+                    ctx.globalAlpha = this.opacity;
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(barX, barY, this.width, this.height);
+                    
+                    // Top highlight
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                    ctx.fillRect(barX, barY, this.width, this.height * 0.2);
+                    
+                    // Border
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity * 0.2})`;
+                    ctx.lineWidth = 1;
+                    ctx.strokeRect(barX, barY, this.width, this.height);
+                    
                     ctx.restore();
                 }
             }
@@ -1342,7 +1418,7 @@
             
             // Connect particles with lines (only nearby ones)
             function connectParticles() {
-                // Connect data points
+                // Connect data points with gradient lines
                 for (let i = 0; i < particles.length; i++) {
                     for (let j = i + 1; j < particles.length; j++) {
                         const dx = particles[i].x - particles[j].x;
@@ -1350,18 +1426,28 @@
                         const distance = Math.sqrt(dx * dx + dy * dy);
                         
                         if (distance < 100) {
-                            const opacity = (1 - distance / 100) * 0.12;
-                            ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
-                            ctx.lineWidth = 0.5;
+                            const opacity = (1 - distance / 100) * 0.15;
+                            const gradient = ctx.createLinearGradient(
+                                particles[i].x, particles[i].y,
+                                particles[j].x, particles[j].y
+                            );
+                            gradient.addColorStop(0, `rgba(59, 130, 246, ${opacity})`);
+                            gradient.addColorStop(0.5, `rgba(147, 51, 234, ${opacity * 0.8})`);
+                            gradient.addColorStop(1, `rgba(59, 130, 246, ${opacity})`);
+                            
+                            ctx.strokeStyle = gradient;
+                            ctx.lineWidth = 0.8;
+                            ctx.setLineDash([2, 3]);
                             ctx.beginPath();
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(particles[j].x, particles[j].y);
                             ctx.stroke();
+                            ctx.setLineDash([]);
                         }
                     }
                 }
                 
-                // Connect network nodes (neural network style)
+                // Connect network nodes (neural network style) with animated lines
                 for (let i = 0; i < networkNodes.length; i++) {
                     for (let j = i + 1; j < networkNodes.length; j++) {
                         const dx = networkNodes[i].x - networkNodes[j].x;
@@ -1369,13 +1455,28 @@
                         const distance = Math.sqrt(dx * dx + dy * dy);
                         
                         if (distance < 150) {
-                            const opacity = (1 - distance / 150) * 0.2;
-                            ctx.strokeStyle = `rgba(147, 51, 234, ${opacity})`;
-                            ctx.lineWidth = 1;
+                            const opacity = (1 - distance / 150) * 0.25;
+                            const time = Date.now() * 0.001;
+                            const pulse = (Math.sin(time + distance * 0.01) + 1) * 0.5;
+                            
+                            // Gradient connection
+                            const gradient = ctx.createLinearGradient(
+                                networkNodes[i].x, networkNodes[i].y,
+                                networkNodes[j].x, networkNodes[j].y
+                            );
+                            gradient.addColorStop(0, `rgba(147, 51, 234, ${opacity * (0.5 + pulse * 0.5)})`);
+                            gradient.addColorStop(0.5, `rgba(59, 130, 246, ${opacity * (0.7 + pulse * 0.3)})`);
+                            gradient.addColorStop(1, `rgba(147, 51, 234, ${opacity * (0.5 + pulse * 0.5)})`);
+                            
+                            ctx.strokeStyle = gradient;
+                            ctx.lineWidth = 1.2;
+                            ctx.shadowBlur = 3;
+                            ctx.shadowColor = `rgba(147, 51, 234, ${opacity * 0.5})`;
                             ctx.beginPath();
                             ctx.moveTo(networkNodes[i].x, networkNodes[i].y);
                             ctx.lineTo(networkNodes[j].x, networkNodes[j].y);
                             ctx.stroke();
+                            ctx.shadowBlur = 0;
                         }
                     }
                 }
