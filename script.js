@@ -981,7 +981,7 @@
             let networkNodes = [];
             let floatingNumbers = [];
             let ripples = [];
-            let mouse = { x: 0, y: 0, vx: 0, vy: 0, px: 0, py: 0 };
+            let mouse = { x: 0, y: 0 };
             let animationFrameId;
             let isMouseActive = false;
             
@@ -1010,25 +1010,16 @@
                 this.x += this.speedX + wobbleOffset;
                 this.y += this.speedY;
                 
-                // Enhanced mouse interaction - particles are repelled and affected by velocity
+                // Smooth, subtle mouse interaction
                 if (isMouseActive) {
                     const dx = mouse.x - this.x;
                     const dy = mouse.y - this.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 200 && distance > 0) {
-                        const force = (200 - distance) / 200;
-                        const repulsionForce = force * 0.8;
-                        const velocityForce = Math.sqrt(mouse.vx * mouse.vx + mouse.vy * mouse.vy) * 0.1;
-                        
-                        // Repulsion from mouse
-                        this.x -= (dx / distance) * repulsionForce;
-                        this.y -= (dy / distance) * repulsionForce;
-                        
-                        // Affected by mouse velocity (creates trailing effect)
-                        if (velocityForce > 0.1) {
-                            this.x += mouse.vx * velocityForce * 0.3;
-                            this.y += mouse.vy * velocityForce * 0.3;
-                        }
+                    if (distance < 120 && distance > 0) {
+                        // Smooth repulsion with easing
+                        const force = Math.pow((120 - distance) / 120, 2) * 0.3;
+                        this.x -= (dx / distance) * force;
+                        this.y -= (dy / distance) * force;
                     }
                 }
                 
@@ -1047,36 +1038,12 @@
                 ctx.save();
                 ctx.globalAlpha = this.opacity;
                 
-                // Draw subtle connection line (data point trail)
-                const lineLength = 15 + Math.sin(this.wobble) * 5;
-                const gradient = ctx.createLinearGradient(this.x, this.y, this.x, this.y + lineLength);
-                gradient.addColorStop(0, `rgba(59, 130, 246, ${this.opacity * 0.4})`);
-                gradient.addColorStop(1, `rgba(59, 130, 246, 0)`);
-                ctx.strokeStyle = gradient;
-                ctx.lineWidth = 1.5;
-                ctx.beginPath();
-                ctx.moveTo(this.x, this.y);
-                ctx.lineTo(this.x, this.y + lineLength);
-                ctx.stroke();
-                
-                // Draw point with gradient fill
-                const pointGradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
-                pointGradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
-                pointGradient.addColorStop(0.5, 'rgba(59, 130, 246, 1)');
-                pointGradient.addColorStop(1, 'rgba(59, 130, 246, 0.6)');
-                ctx.fillStyle = pointGradient;
+                // Simple, clean point
+                ctx.fillStyle = `rgba(59, 130, 246, ${this.opacity})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
                 
-                // Outer glow ring
-                ctx.shadowBlur = 8;
-                ctx.shadowColor = 'rgba(59, 130, 246, 0.6)';
-                ctx.strokeStyle = `rgba(59, 130, 246, ${this.opacity * 0.3})`;
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size + 2, 0, Math.PI * 2);
-                ctx.stroke();
                 ctx.restore();
             }
             }
@@ -1105,25 +1072,15 @@
                 this.x += this.speedX + wobbleOffset;
                 this.y += this.speedY;
                 
-                // Enhanced mouse interaction for blobs
+                // Subtle mouse interaction
                 if (isMouseActive) {
                     const dx = mouse.x - this.x;
                     const dy = mouse.y - this.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 250 && distance > 0) {
-                        const force = (250 - distance) / 250;
-                        const repulsionForce = force * 0.4;
-                        const velocityForce = Math.sqrt(mouse.vx * mouse.vx + mouse.vy * mouse.vy) * 0.12;
-                        
-                        // Repulsion from mouse
-                        this.x -= (dx / distance) * repulsionForce;
-                        this.y -= (dy / distance) * repulsionForce;
-                        
-                        // Affected by mouse velocity
-                        if (velocityForce > 0.1) {
-                            this.x += mouse.vx * velocityForce * 0.5;
-                            this.y += mouse.vy * velocityForce * 0.5;
-                        }
+                    if (distance < 150 && distance > 0) {
+                        const force = Math.pow((150 - distance) / 150, 2) * 0.2;
+                        this.x -= (dx / distance) * force;
+                        this.y -= (dy / distance) * force;
                     }
                 }
                 
@@ -1139,39 +1096,15 @@
             
             draw() {
                 ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.rotation);
+                ctx.globalAlpha = this.opacity;
                 
-                // Create organic blob shape with more points for smoother look
-                ctx.beginPath();
-                const points = 12;
-                for (let i = 0; i < points; i++) {
-                    const angle = (i / points) * Math.PI * 2;
-                    const radius = this.size + Math.sin(this.wobble * 2 + i) * 12 + Math.cos(this.wobble * 1.5 + i) * 8;
-                    const x = Math.cos(angle) * radius;
-                    const y = Math.sin(angle) * radius;
-                    if (i === 0) {
-                        ctx.moveTo(x, y);
-                    } else {
-                        ctx.lineTo(x, y);
-                    }
-                }
-                ctx.closePath();
-                
-                // Multi-color gradient fill (data cluster effect)
-                const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size * 1.5);
-                const hue1 = this.colorHue;
-                const hue2 = (this.colorHue + 30) % 360;
-                gradient.addColorStop(0, `hsla(${hue1}, 70%, 60%, ${this.opacity * 2})`);
-                gradient.addColorStop(0.4, `hsla(${hue2}, 65%, 55%, ${this.opacity * 1.5})`);
-                gradient.addColorStop(0.7, `hsla(${hue1}, 60%, 50%, ${this.opacity * 0.8})`);
-                gradient.addColorStop(1, `hsla(${hue1}, 50%, 45%, 0)`);
+                // Simple, subtle blob
+                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+                gradient.addColorStop(0, `rgba(59, 130, 246, ${this.opacity * 0.3})`);
+                gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
                 ctx.fillStyle = gradient;
-                ctx.fill();
-                
-                // Outer glow
-                ctx.shadowBlur = 20;
-                ctx.shadowColor = `hsla(${hue1}, 70%, 60%, ${this.opacity * 0.3})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
                 
                 ctx.restore();
@@ -1196,28 +1129,15 @@
                     this.x += this.speedX;
                     this.y += this.speedY;
                     
-                    // Enhanced mouse interaction for network nodes
+                    // Smooth mouse interaction
                     if (isMouseActive) {
                         const dx = mouse.x - this.x;
                         const dy = mouse.y - this.y;
                         const distance = Math.sqrt(dx * dx + dy * dy);
-                        if (distance < 180 && distance > 0) {
-                            const force = (180 - distance) / 180;
-                            const repulsionForce = force * 0.6;
-                            const velocityForce = Math.sqrt(mouse.vx * mouse.vx + mouse.vy * mouse.vy) * 0.15;
-                            
-                            // Repulsion from mouse
-                            this.x -= (dx / distance) * repulsionForce;
-                            this.y -= (dy / distance) * repulsionForce;
-                            
-                            // Affected by mouse velocity
-                            if (velocityForce > 0.1) {
-                                this.x += mouse.vx * velocityForce * 0.4;
-                                this.y += mouse.vy * velocityForce * 0.4;
-                            }
-                            
-                            // Increase pulse when near mouse
-                            this.pulseSpeed += force * 0.01;
+                        if (distance < 100 && distance > 0) {
+                            const force = Math.pow((100 - distance) / 100, 2) * 0.25;
+                            this.x -= (dx / distance) * force;
+                            this.y -= (dy / distance) * force;
                         }
                     }
                     
@@ -1231,34 +1151,13 @@
                 
                 draw() {
                     ctx.save();
-                    const pulseSize = this.size + Math.sin(this.pulse) * 2;
-                    const pulseOpacity = this.opacity + Math.sin(this.pulse) * 0.1;
-                    ctx.globalAlpha = pulseOpacity;
+                    const pulseSize = this.size + Math.sin(this.pulse) * 1;
+                    ctx.globalAlpha = this.opacity;
                     
-                    // Outer glow ring (animated)
-                    const outerRing = pulseSize + 5 + Math.sin(this.pulse * 1.5) * 2;
-                    const ringGradient = ctx.createRadialGradient(this.x, this.y, pulseSize, this.x, this.y, outerRing);
-                    ringGradient.addColorStop(0, `rgba(147, 51, 234, ${pulseOpacity * 0.3})`);
-                    ringGradient.addColorStop(1, 'rgba(147, 51, 234, 0)');
-                    ctx.fillStyle = ringGradient;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, outerRing, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    // Draw node with gradient fill
-                    const nodeGradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, pulseSize);
-                    nodeGradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)');
-                    nodeGradient.addColorStop(0.4, 'rgba(147, 51, 234, 1)');
-                    nodeGradient.addColorStop(1, 'rgba(147, 51, 234, 0.7)');
-                    ctx.fillStyle = nodeGradient;
+                    // Simple, clean node
+                    ctx.fillStyle = `rgba(147, 51, 234, ${this.opacity})`;
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, pulseSize, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    // Inner highlight
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-                    ctx.beginPath();
-                    ctx.arc(this.x - pulseSize * 0.3, this.y - pulseSize * 0.3, pulseSize * 0.3, 0, Math.PI * 2);
                     ctx.fill();
                     
                     ctx.restore();
@@ -1389,49 +1288,45 @@
                 }
             }
             
-            // Create particles
+            // Create particles - reduced for minimal look
             function createParticles() {
-                const particleCount = Math.min(120, Math.floor(canvas.width / 10));
+                const particleCount = Math.min(40, Math.floor(canvas.width / 25));
                 particles = [];
                 for (let i = 0; i < particleCount; i++) {
                     particles.push(new Particle());
                 }
             }
             
-            // Create blobs
+            // Create blobs - reduced
             function createBlobs() {
-                const blobCount = Math.min(6, Math.floor(canvas.width / 250));
+                const blobCount = Math.min(2, Math.floor(canvas.width / 500));
                 blobs = [];
                 for (let i = 0; i < blobCount; i++) {
                     blobs.push(new Blob());
                 }
             }
             
-            // Create network nodes
+            // Create network nodes - reduced
             function createNetworkNodes() {
-                const nodeCount = Math.min(25, Math.floor(canvas.width / 50));
+                const nodeCount = Math.min(12, Math.floor(canvas.width / 120));
                 networkNodes = [];
                 for (let i = 0; i < nodeCount; i++) {
                     networkNodes.push(new NetworkNode());
                 }
             }
             
-            // Create floating numbers
+            // Create floating numbers - reduced
             function createFloatingNumbers() {
-                const numberCount = Math.min(15, Math.floor(canvas.width / 100));
+                const numberCount = Math.min(6, Math.floor(canvas.width / 200));
                 floatingNumbers = [];
                 for (let i = 0; i < numberCount; i++) {
                     floatingNumbers.push(new FloatingNumber());
                 }
             }
             
-            // Create chart bars
+            // Remove chart bars for cleaner look
             function createChartBars() {
-                const barCount = Math.min(20, Math.floor(canvas.width / 80));
                 dataPoints = [];
-                for (let i = 0; i < barCount; i++) {
-                    dataPoints.push(new ChartBar());
-                }
             }
             
             // Set canvas size
@@ -1446,38 +1341,28 @@
                 createChartBars();
             }
             
-            // Ripple effect class for click interactions
+            // Minimal ripple effect
             class Ripple {
                 constructor(x, y) {
                     this.x = x;
                     this.y = y;
                     this.radius = 0;
-                    this.maxRadius = 200;
-                    this.opacity = 0.6;
-                    this.speed = 3;
+                    this.maxRadius = 150;
+                    this.opacity = 0.3;
+                    this.speed = 4;
                 }
                 
                 update() {
                     this.radius += this.speed;
-                    this.opacity -= 0.02;
+                    this.opacity -= 0.015;
                     return this.radius < this.maxRadius && this.opacity > 0;
                 }
                 
                 draw() {
                     ctx.save();
                     ctx.globalAlpha = this.opacity;
-                    const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
-                    gradient.addColorStop(0, 'rgba(59, 130, 246, 0.4)');
-                    gradient.addColorStop(0.5, 'rgba(147, 51, 234, 0.2)');
-                    gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
-                    ctx.fillStyle = gradient;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    // Outer ring
-                    ctx.strokeStyle = `rgba(59, 130, 246, ${this.opacity * 0.5})`;
-                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = `rgba(59, 130, 246, ${this.opacity})`;
+                    ctx.lineWidth = 1;
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                     ctx.stroke();
@@ -1485,46 +1370,26 @@
                 }
             }
             
-            // Track mouse position and velocity for interactive effect
+            // Track mouse position for smooth interaction
             canvas.addEventListener('mousemove', (e) => {
                 const rect = canvas.getBoundingClientRect();
-                mouse.px = mouse.x;
-                mouse.py = mouse.y;
                 mouse.x = e.clientX - rect.left;
                 mouse.y = e.clientY - rect.top;
-                mouse.vx = mouse.x - mouse.px;
-                mouse.vy = mouse.y - mouse.py;
                 isMouseActive = true;
             });
             
             canvas.addEventListener('mouseleave', () => {
                 isMouseActive = false;
-                mouse.vx = 0;
-                mouse.vy = 0;
             });
             
-            // Click interaction - create ripple and burst particles
+            // Click interaction - minimal ripple only
             canvas.addEventListener('click', (e) => {
                 const rect = canvas.getBoundingClientRect();
                 const clickX = e.clientX - rect.left;
                 const clickY = e.clientY - rect.top;
                 
-                // Create ripple
+                // Create subtle ripple
                 ripples.push(new Ripple(clickX, clickY));
-                
-                // Create burst of particles
-                for (let i = 0; i < 8; i++) {
-                    const angle = (Math.PI * 2 / 8) * i;
-                    const speed = Math.random() * 3 + 2;
-                    const burstParticle = new Particle();
-                    burstParticle.x = clickX;
-                    burstParticle.y = clickY;
-                    burstParticle.speedX = Math.cos(angle) * speed;
-                    burstParticle.speedY = Math.sin(angle) * speed - 1; // Still float up
-                    burstParticle.size = Math.random() * 3 + 2;
-                    burstParticle.opacity = 0.8;
-                    particles.push(burstParticle);
-                }
             });
             
             // Touch support for mobile
@@ -1547,85 +1412,54 @@
                 e.preventDefault();
                 const touch = e.touches[0];
                 const rect = canvas.getBoundingClientRect();
-                mouse.px = mouse.x;
-                mouse.py = mouse.y;
                 mouse.x = touch.clientX - rect.left;
                 mouse.y = touch.clientY - rect.top;
-                mouse.vx = mouse.x - mouse.px;
-                mouse.vy = mouse.y - mouse.py;
             });
             
             canvas.addEventListener('touchend', () => {
                 isMouseActive = false;
-                mouse.vx = 0;
-                mouse.vy = 0;
             });
             
             // Initialize canvas and particles
             resizeCanvas();
             window.addEventListener('resize', resizeCanvas);
             
-            // Connect particles with lines (only nearby ones)
+            // Connect particles with lines - minimal and clean
             function connectParticles() {
-                // Connect data points with gradient lines
+                // Connect nearby particles with subtle lines
                 for (let i = 0; i < particles.length; i++) {
                     for (let j = i + 1; j < particles.length; j++) {
                         const dx = particles[i].x - particles[j].x;
                         const dy = particles[i].y - particles[j].y;
                         const distance = Math.sqrt(dx * dx + dy * dy);
                         
-                        if (distance < 100) {
-                            const opacity = (1 - distance / 100) * 0.15;
-                            const gradient = ctx.createLinearGradient(
-                                particles[i].x, particles[i].y,
-                                particles[j].x, particles[j].y
-                            );
-                            gradient.addColorStop(0, `rgba(59, 130, 246, ${opacity})`);
-                            gradient.addColorStop(0.5, `rgba(147, 51, 234, ${opacity * 0.8})`);
-                            gradient.addColorStop(1, `rgba(59, 130, 246, ${opacity})`);
-                            
-                            ctx.strokeStyle = gradient;
-                            ctx.lineWidth = 0.8;
-                            ctx.setLineDash([2, 3]);
+                        if (distance < 80) {
+                            const opacity = (1 - distance / 80) * 0.08;
+                            ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
+                            ctx.lineWidth = 0.5;
                             ctx.beginPath();
                             ctx.moveTo(particles[i].x, particles[i].y);
                             ctx.lineTo(particles[j].x, particles[j].y);
                             ctx.stroke();
-                            ctx.setLineDash([]);
                         }
                     }
                 }
                 
-                // Connect network nodes (neural network style) with animated lines
+                // Connect nearby network nodes
                 for (let i = 0; i < networkNodes.length; i++) {
                     for (let j = i + 1; j < networkNodes.length; j++) {
                         const dx = networkNodes[i].x - networkNodes[j].x;
                         const dy = networkNodes[i].y - networkNodes[j].y;
                         const distance = Math.sqrt(dx * dx + dy * dy);
                         
-                        if (distance < 150) {
-                            const opacity = (1 - distance / 150) * 0.25;
-                            const time = Date.now() * 0.001;
-                            const pulse = (Math.sin(time + distance * 0.01) + 1) * 0.5;
-                            
-                            // Gradient connection
-                            const gradient = ctx.createLinearGradient(
-                                networkNodes[i].x, networkNodes[i].y,
-                                networkNodes[j].x, networkNodes[j].y
-                            );
-                            gradient.addColorStop(0, `rgba(147, 51, 234, ${opacity * (0.5 + pulse * 0.5)})`);
-                            gradient.addColorStop(0.5, `rgba(59, 130, 246, ${opacity * (0.7 + pulse * 0.3)})`);
-                            gradient.addColorStop(1, `rgba(147, 51, 234, ${opacity * (0.5 + pulse * 0.5)})`);
-                            
-                            ctx.strokeStyle = gradient;
-                            ctx.lineWidth = 1.2;
-                            ctx.shadowBlur = 3;
-                            ctx.shadowColor = `rgba(147, 51, 234, ${opacity * 0.5})`;
+                        if (distance < 120) {
+                            const opacity = (1 - distance / 120) * 0.12;
+                            ctx.strokeStyle = `rgba(147, 51, 234, ${opacity})`;
+                            ctx.lineWidth = 0.8;
                             ctx.beginPath();
                             ctx.moveTo(networkNodes[i].x, networkNodes[i].y);
                             ctx.lineTo(networkNodes[j].x, networkNodes[j].y);
                             ctx.stroke();
-                            ctx.shadowBlur = 0;
                         }
                     }
                 }
@@ -1646,12 +1480,6 @@
                 blobs.forEach(blob => {
                     blob.update();
                     blob.draw();
-                });
-                
-                // Draw chart bars (data visualization layer)
-                dataPoints.forEach(bar => {
-                    bar.update();
-                    bar.draw();
                 });
                 
                 // Draw network nodes
@@ -1675,23 +1503,7 @@
                 // Connect elements (network connections)
                 connectParticles();
                 
-                // Draw mouse interaction area (subtle glow)
-                if (isMouseActive) {
-                    ctx.save();
-                    const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 150);
-                    gradient.addColorStop(0, 'rgba(59, 130, 246, 0.1)');
-                    gradient.addColorStop(0.5, 'rgba(147, 51, 234, 0.05)');
-                    gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
-                    ctx.fillStyle = gradient;
-                    ctx.beginPath();
-                    ctx.arc(mouse.x, mouse.y, 150, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.restore();
-                }
-                
-                // Decay mouse velocity
-                mouse.vx *= 0.9;
-                mouse.vy *= 0.9;
+                // Remove mouse glow for cleaner look
                 
                 animationFrameId = requestAnimationFrame(animate);
             }

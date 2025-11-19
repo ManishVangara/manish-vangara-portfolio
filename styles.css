@@ -695,11 +695,10 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.95;
+    opacity: 0.85;
     transition: opacity 0.3s ease;
-    filter: blur(0.3px);
     will-change: transform;
-    cursor: crosshair;
+    cursor: default;
 }
 .data-grid-overlay {
     position: absolute;
@@ -708,29 +707,18 @@ a {
     width: 100%;
     height: 100%;
     background-image: 
-        linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    background-position: 0 0;
+        linear-gradient(rgba(59, 130, 246, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.02) 1px, transparent 1px);
+    background-size: 80px 80px;
     pointer-events: none;
     z-index: 1;
-    opacity: 0.4;
-    animation: gridPulse 5s ease-in-out infinite, gridMove 20s linear infinite;
-    will-change: opacity, background-position;
-}
-@keyframes gridPulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.5; }
-}
-@keyframes gridMove {
-    0% { background-position: 0 0; }
-    100% { background-position: 60px 60px; }
+    opacity: 0.3;
 }
 [data-theme="dark"] .data-grid-overlay {
     background-image: 
-        linear-gradient(rgba(147, 51, 234, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(147, 51, 234, 0.06) 1px, transparent 1px);
-    opacity: 0.5;
+        linear-gradient(rgba(147, 51, 234, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(147, 51, 234, 0.03) 1px, transparent 1px);
+    opacity: 0.4;
 }
 .gradient-overlay {
     position: absolute;
