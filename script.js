@@ -966,21 +966,22 @@
     
     // Antigravity Background Animation (Google-style)
     function initParticleBackground() {
-        const canvas = document.getElementById('particleCanvas');
-        if (!canvas) {
-            console.warn('Particle canvas not found');
-            return;
-        }
-        
-        console.log('Initializing antigravity background effect');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let blobs = [];
-        let mouse = { x: 0, y: 0 };
-        let animationFrameId;
-        
-        // Particle class - floats upward (antigravity)
-        class Particle {
+        try {
+            const canvas = document.getElementById('particleCanvas');
+            if (!canvas) {
+                console.warn('Particle canvas not found');
+                return;
+            }
+            
+            console.log('Initializing antigravity background effect');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let blobs = [];
+            let mouse = { x: 0, y: 0 };
+            let animationFrameId;
+            
+            // Particle class - floats upward (antigravity)
+            class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = canvas.height + Math.random() * 200; // Start below canvas
@@ -1035,10 +1036,10 @@
                 ctx.fill();
                 ctx.restore();
             }
-        }
-        
-        // Blob class - larger floating shapes
-        class Blob {
+            }
+            
+            // Blob class - larger floating shapes
+            class Blob {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = canvas.height + Math.random() * 300;
@@ -1112,103 +1113,112 @@
                 
                 ctx.restore();
             }
-        }
-        
-        // Create particles
-        function createParticles() {
-            const particleCount = Math.min(150, Math.floor(canvas.width / 8));
-            particles = [];
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
             }
-        }
-        
-        // Create blobs
-        function createBlobs() {
-            const blobCount = Math.min(8, Math.floor(canvas.width / 200));
-            blobs = [];
-            for (let i = 0; i < blobCount; i++) {
-                blobs.push(new Blob());
+            
+            // Create particles
+            function createParticles() {
+                const particleCount = Math.min(150, Math.floor(canvas.width / 8));
+                particles = [];
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
             }
-        }
-        
-        // Set canvas size
-        function resizeCanvas() {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-            // Recreate particles on resize
-            createParticles();
-            createBlobs();
-        }
-        
-        // Track mouse position for interactive effect
-        canvas.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            mouse.x = e.clientX - rect.left;
-            mouse.y = e.clientY - rect.top;
-        });
-        
-        // Initialize canvas and particles
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-        
-        // Connect particles with lines (only nearby ones)
-        function connectParticles() {
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < 100) {
-                        const opacity = (1 - distance / 100) * 0.15;
-                        ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
+            
+            // Create blobs
+            function createBlobs() {
+                const blobCount = Math.min(8, Math.floor(canvas.width / 200));
+                blobs = [];
+                for (let i = 0; i < blobCount; i++) {
+                    blobs.push(new Blob());
+                }
+            }
+            
+            // Set canvas size
+            function resizeCanvas() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+                // Recreate particles on resize
+                createParticles();
+                createBlobs();
+            }
+            
+            // Track mouse position for interactive effect
+            canvas.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
+            });
+            
+            // Initialize canvas and particles
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Connect particles with lines (only nearby ones)
+            function connectParticles() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 100) {
+                            const opacity = (1 - distance / 100) * 0.15;
+                            ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
                     }
                 }
             }
+            
+            // Animation loop
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw blobs first (background layer)
+                blobs.forEach(blob => {
+                    blob.update();
+                    blob.draw();
+                });
+                
+                // Draw particles
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                });
+                
+                // Connect particles
+                connectParticles();
+                
+                animationFrameId = requestAnimationFrame(animate);
+            }
+            
+            animate();
+            
+            // Cleanup
+            return () => {
+                cancelAnimationFrame(animationFrameId);
+                window.removeEventListener('resize', resizeCanvas);
+            };
+        } catch (error) {
+            console.error('Error initializing particle background:', error);
+            // Don't break the rest of the site if particle background fails
         }
-        
-        // Animation loop
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Draw blobs first (background layer)
-            blobs.forEach(blob => {
-                blob.update();
-                blob.draw();
-            });
-            
-            // Draw particles
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-            
-            // Connect particles
-            connectParticles();
-            
-            animationFrameId = requestAnimationFrame(animate);
-        }
-        
-        animate();
-        
-        // Cleanup
-        return () => {
-            cancelAnimationFrame(animationFrameId);
-            window.removeEventListener('resize', resizeCanvas);
-        };
     }
     
     // Initialize all hero animations
     function initHeroAnimations() {
-        initTypewriter();
-        initMetricsCounter();
-        initParticleBackground();
+        try {
+            initTypewriter();
+            initMetricsCounter();
+            initParticleBackground();
+        } catch (error) {
+            console.error('Error initializing hero animations:', error);
+            // Continue execution even if hero animations fail
+        }
     }
     
     // ============================================
