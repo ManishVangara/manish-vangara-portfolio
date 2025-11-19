@@ -964,66 +964,193 @@
         }, stepTime);
     }
     
-    // Particle Background Animation
+    // Antigravity Background Animation (Google-style)
     function initParticleBackground() {
         const canvas = document.getElementById('particleCanvas');
         if (!canvas) return;
         
         const ctx = canvas.getContext('2d');
         let particles = [];
+        let blobs = [];
+        let mouse = { x: 0, y: 0 };
         let animationFrameId;
         
         // Set canvas size
         function resizeCanvas() {
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
+            // Recreate particles on resize
+            createParticles();
+            createBlobs();
         }
         
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
         
-        // Particle class
+        // Track mouse position for interactive effect
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+        
+        // Particle class - floats upward (antigravity)
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.opacity = Math.random() * 0.5 + 0.2;
+                this.y = canvas.height + Math.random() * 200; // Start below canvas
+                this.size = Math.random() * 4 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.3; // Horizontal drift
+                this.speedY = -(Math.random() * 0.5 + 0.3); // Upward float (negative = up)
+                this.opacity = Math.random() * 0.4 + 0.3;
+                this.wobble = Math.random() * Math.PI * 2; // For organic movement
+                this.wobbleSpeed = Math.random() * 0.02 + 0.01;
             }
             
             update() {
-                this.x += this.speedX;
+                // Organic wobble motion
+                this.wobble += this.wobbleSpeed;
+                const wobbleOffset = Math.sin(this.wobble) * 2;
+                
+                this.x += this.speedX + wobbleOffset;
                 this.y += this.speedY;
                 
-                // Wrap around edges
+                // Mouse interaction - particles are repelled slightly
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 150 && distance > 0) {
+                    const force = (150 - distance) / 150 * 0.5;
+                    this.x -= (dx / distance) * force;
+                    this.y -= (dy / distance) * force;
+                }
+                
+                // Wrap around edges horizontally
                 if (this.x > canvas.width) this.x = 0;
                 if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
+                
+                // Reset when particles float off top
+                if (this.y < -50) {
+                    this.y = canvas.height + 50;
+                    this.x = Math.random() * canvas.width;
+                }
             }
             
             draw() {
-                ctx.fillStyle = `rgba(59, 130, 246, ${this.opacity})`;
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = `rgba(59, 130, 246, 1)`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
+                
+                // Add glow effect
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = 'rgba(59, 130, 246, 0.5)';
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+        
+        // Blob class - larger floating shapes
+        class Blob {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 300;
+                this.size = Math.random() * 80 + 40;
+                this.speedX = (Math.random() - 0.5) * 0.2;
+                this.speedY = -(Math.random() * 0.3 + 0.2);
+                this.opacity = Math.random() * 0.15 + 0.05;
+                this.wobble = Math.random() * Math.PI * 2;
+                this.wobbleSpeed = Math.random() * 0.01 + 0.005;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.01;
+            }
+            
+            update() {
+                this.wobble += this.wobbleSpeed;
+                this.rotation += this.rotationSpeed;
+                
+                const wobbleOffset = Math.sin(this.wobble) * 3;
+                this.x += this.speedX + wobbleOffset;
+                this.y += this.speedY;
+                
+                // Mouse interaction
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 200 && distance > 0) {
+                    const force = (200 - distance) / 200 * 0.3;
+                    this.x -= (dx / distance) * force;
+                    this.y -= (dy / distance) * force;
+                }
+                
+                // Wrap around edges
+                if (this.x > canvas.width + this.size) this.x = -this.size;
+                if (this.x < -this.size) this.x = canvas.width + this.size;
+                
+                if (this.y < -this.size) {
+                    this.y = canvas.height + this.size;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+                
+                // Create organic blob shape
+                ctx.beginPath();
+                const points = 8;
+                for (let i = 0; i < points; i++) {
+                    const angle = (i / points) * Math.PI * 2;
+                    const radius = this.size + Math.sin(this.wobble * 2 + i) * 10;
+                    const x = Math.cos(angle) * radius;
+                    const y = Math.sin(angle) * radius;
+                    if (i === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                ctx.closePath();
+                
+                // Gradient fill
+                const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, this.size);
+                gradient.addColorStop(0, 'rgba(59, 130, 246, 0.3)');
+                gradient.addColorStop(0.5, 'rgba(147, 51, 234, 0.2)');
+                gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+                ctx.fillStyle = gradient;
+                ctx.fill();
+                
+                ctx.restore();
             }
         }
         
         // Create particles
         function createParticles() {
-            const particleCount = Math.min(100, Math.floor(canvas.width / 10));
+            const particleCount = Math.min(150, Math.floor(canvas.width / 8));
             particles = [];
             for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
             }
         }
         
-        createParticles();
+        // Create blobs
+        function createBlobs() {
+            const blobCount = Math.min(8, Math.floor(canvas.width / 200));
+            blobs = [];
+            for (let i = 0; i < blobCount; i++) {
+                blobs.push(new Blob());
+            }
+        }
         
-        // Connect particles with lines
+        createParticles();
+        createBlobs();
+        
+        // Connect particles with lines (only nearby ones)
         function connectParticles() {
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
@@ -1031,10 +1158,10 @@
                     const dy = particles[i].y - particles[j].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
                     
-                    if (distance < 120) {
-                        const opacity = (1 - distance / 120) * 0.2;
+                    if (distance < 100) {
+                        const opacity = (1 - distance / 100) * 0.15;
                         ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
-                        ctx.lineWidth = 1;
+                        ctx.lineWidth = 0.5;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
@@ -1048,11 +1175,19 @@
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
+            // Draw blobs first (background layer)
+            blobs.forEach(blob => {
+                blob.update();
+                blob.draw();
+            });
+            
+            // Draw particles
             particles.forEach(particle => {
                 particle.update();
                 particle.draw();
             });
             
+            // Connect particles
             connectParticles();
             
             animationFrameId = requestAnimationFrame(animate);
