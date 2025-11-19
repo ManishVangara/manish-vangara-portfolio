@@ -967,8 +967,12 @@
     // Antigravity Background Animation (Google-style)
     function initParticleBackground() {
         const canvas = document.getElementById('particleCanvas');
-        if (!canvas) return;
+        if (!canvas) {
+            console.warn('Particle canvas not found');
+            return;
+        }
         
+        console.log('Initializing antigravity background effect');
         const ctx = canvas.getContext('2d');
         let particles = [];
         let blobs = [];
