@@ -3058,10 +3058,36 @@ a {
         margin-bottom: 30px;
     }
 
-    .cards-grid,
     .hobbies-grid {
         grid-template-columns: 1fr;
         gap: 20px;
+    }
+
+    /* Mobile Carousel for Projects & Certifications */
+    .cards-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 16px;
+        padding-bottom: 16px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        /* Firefox */
+        grid-template-columns: none;
+        /* Reset grid */
+    }
+
+    .cards-grid::-webkit-scrollbar {
+        display: none;
+        /* Chrome/Safari */
+    }
+
+    .cards-grid .card {
+        flex: 0 0 85vw;
+        scroll-snap-align: center;
+        min-width: 85vw;
+        margin-right: 0;
+        /* Reset any margins */
     }
 
     .story-container {

@@ -7,7 +7,7 @@
     // ============================================
     // LOAD PROJECTS FROM EXTERNAL FILE
     // ============================================
-    async function loadProjects(limit = 6) {
+    async function loadProjects(limit = 6, featuredOnly = false) {
         const projectsContainer = document.getElementById('projectsContainer');
 
         try {
@@ -18,10 +18,15 @@
                 throw new Error('Failed to load projects');
             }
 
-            const projects = await response.json();
+            let projects = await response.json();
 
             // Clear loading message
             projectsContainer.innerHTML = '';
+
+            // Filter for featured projects if requested
+            if (featuredOnly) {
+                projects = projects.filter(p => p.featured);
+            }
 
             // Limit projects if specified
             const displayProjects = limit ? projects.slice(0, limit) : projects;
@@ -1516,7 +1521,7 @@
             loadAllProjects();
         } else {
             console.log('🏠 Detected index.html page');
-            loadProjects(6); // Limit to 6 projects on the home page
+            loadProjects(6, true); // Limit to 6 featured projects on the home page
         }
 
         // Load certifications from external file

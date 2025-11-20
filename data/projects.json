@@ -4,46 +4,53 @@
     "image": "../assets/projects/customer_churn.png",
     "techStack": "Python • Scikit-learn • XGBoost • AWS",
     "description": "Developed a machine learning model to predict customer churn with 92% accuracy, enabling proactive retention strategies that reduced churn by 25% and saved $2M annually.",
-    "link": "../assets/projects/Multi_Engine_STT_Report_Notion.html"
+    "link": "../assets/projects/Multi_Engine_STT_Report_Notion.html",
+    "featured": true
   },
   {
     "title": "Real-Time Analytics Dashboard",
     "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop&q=80",
     "techStack": "React • D3.js • Apache Kafka • PostgreSQL",
     "description": "Built an interactive real-time dashboard visualizing key business metrics across multiple regions, processing 50K+ events per second with sub-second latency.",
-    "link": "https://github.com/yourusername/analytics-dashboard"
+    "link": "https://github.com/yourusername/analytics-dashboard",
+    "featured": true
   },
   {
     "title": "Scalable ETL Pipeline",
     "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=600&fit=crop",
     "techStack": "Apache Spark • Airflow • Docker • AWS S3",
     "description": "Designed and implemented a fault-tolerant ETL pipeline processing 10M+ records daily, reducing data processing time by 70% and infrastructure costs by 40%.",
-    "link": "https://github.com/yourusername/etl-pipeline"
+    "link": "https://github.com/yourusername/etl-pipeline",
+    "featured": true
   },
   {
     "title": "NLP Sentiment Analysis",
     "image": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&h=600&fit=crop",
     "techStack": "Python • BERT • TensorFlow • FastAPI",
     "description": "Created an NLP model analyzing customer feedback sentiment from 100K+ reviews, providing actionable insights that improved product ratings by 15%.",
-    "link": "https://github.com/yourusername/sentiment-analysis"
+    "link": "https://github.com/yourusername/sentiment-analysis",
+    "featured": true
   },
   {
     "title": "Recommendation System",
     "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
     "techStack": "Python • Collaborative Filtering • Redis • Flask",
     "description": "Built a collaborative filtering recommendation engine that increased user engagement by 40% and improved conversion rates by 18%.",
-    "link": "https://github.com/yourusername/recommendation-system"
+    "link": "https://github.com/yourusername/recommendation-system",
+    "featured": true
   },
   {
     "title": "Fraud Detection System",
     "image": "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop",
     "techStack": "Python • Isolation Forest • PostgreSQL • Docker",
-    "description": "Developed an anomaly detection system that identified fraudulent transactions with 95% precision, saving the company $1.5M annually."
-  }, 
+    "description": "Developed an anomaly detection system that identified fraudulent transactions with 95% precision, saving the company $1.5M annually.",
+    "featured": true
+  },
   {
     "title": "Image Classification with CNNs",
     "image": "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?w=800&h=600&fit=crop",
     "techStack": "Python • Keras • TensorFlow • OpenCV",
-    "description": "Implemented a convolutional neural network (CNN) for image classification achieving 98% accuracy on a dataset of 50,000 images, enhancing automated tagging processes."
+    "description": "Implemented a convolutional neural network (CNN) for image classification achieving 98% accuracy on a dataset of 50,000 images, enhancing automated tagging processes.",
+    "featured": true
   }
 ]
