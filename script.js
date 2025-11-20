@@ -82,8 +82,10 @@
     // ============================================
     // LOAD CERTIFICATIONS FROM EXTERNAL FILE
     // ============================================
-    async function loadCertifications() {
+    async function loadCertifications(limit = null) {
         const certificationsContainer = document.getElementById('certificationsContainer');
+
+        if (!certificationsContainer) return;
 
         try {
             // Try to load from certifications.json
@@ -98,8 +100,11 @@
             // Clear loading message
             certificationsContainer.innerHTML = '';
 
+            // Limit certifications if specified
+            const displayCertifications = limit ? certifications.slice(0, limit) : certifications;
+
             // Create certification cards
-            certifications.forEach(certification => {
+            displayCertifications.forEach(certification => {
                 const card = createCertificationCard(certification);
                 certificationsContainer.appendChild(card);
             });
@@ -107,6 +112,47 @@
         } catch (error) {
             console.error('Error loading certifications:', error);
             certificationsContainer.innerHTML = '<p class="loading">Failed to load certifications.</p>';
+        }
+    }
+
+    // ============================================
+    // LOAD ALL CERTIFICATIONS (for certifications.html page)
+    // ============================================
+    async function loadAllCertifications() {
+        const allCertificationsContainer = document.getElementById('allCertificationsContainer');
+
+        if (!allCertificationsContainer) {
+            console.error('❌ allCertificationsContainer not found');
+            return;
+        }
+
+        console.log('📁 Loading all certifications...');
+
+        try {
+            // Try to load from certifications.json
+            const response = await fetch('data/certifications.json');
+
+            if (!response.ok) {
+                throw new Error('Failed to load certifications');
+            }
+
+            const certifications = await response.json();
+            console.log(`✅ Loaded ${certifications.length} certifications successfully`);
+
+            // Clear loading message
+            allCertificationsContainer.innerHTML = '';
+
+            // Create all certification cards
+            certifications.forEach(certification => {
+                const card = createCertificationCard(certification);
+                allCertificationsContainer.appendChild(card);
+            });
+
+            console.log('✅ All certification cards rendered');
+
+        } catch (error) {
+            console.error('❌ Error loading certifications:', error);
+            allCertificationsContainer.innerHTML = '<p class="loading">Failed to load certifications.</p>';
         }
     }
 
@@ -1446,7 +1492,13 @@
         }
 
         // Load certifications from external file
-        loadCertifications();
+        // Load certifications from external file
+        if (document.getElementById('allCertificationsContainer')) {
+            console.log('📄 Detected certifications.html page');
+            loadAllCertifications();
+        } else {
+            loadCertifications(3); // Limit to 3 certifications on the home page
+        }
 
         // Load experience from external file
         loadExperience();
