@@ -1,9 +1,9 @@
 // ============================================
 // PORTFOLIO WEBSITE - MAIN JAVASCRIPT
 // ============================================
-(function() {
+(function () {
     'use strict';
-    
+
     // ============================================
     // LOAD PROJECTS FROM EXTERNAL FILE
     // ============================================
@@ -78,162 +78,162 @@
             allProjectsContainer.innerHTML = '<p class="loading">Failed to load projects.</p>';
         }
     }
-    
+
     // ============================================
     // LOAD CERTIFICATIONS FROM EXTERNAL FILE
     // ============================================
     async function loadCertifications() {
         const certificationsContainer = document.getElementById('certificationsContainer');
-        
+
         try {
             // Try to load from certifications.json
             const response = await fetch('data/certifications.json');
-            
+
             if (!response.ok) {
                 throw new Error('Failed to load certifications');
             }
-            
+
             const certifications = await response.json();
-            
+
             // Clear loading message
             certificationsContainer.innerHTML = '';
-            
+
             // Create certification cards
             certifications.forEach(certification => {
                 const card = createCertificationCard(certification);
                 certificationsContainer.appendChild(card);
             });
-            
+
         } catch (error) {
             console.error('Error loading certifications:', error);
             certificationsContainer.innerHTML = '<p class="loading">Failed to load certifications.</p>';
         }
     }
-    
+
     // ============================================
     // LOAD SKILLS FROM EXTERNAL FILE
     // ============================================
     async function loadSkills() {
         const skillsContainer = document.getElementById('skillsContainer');
-        
+
         try {
             // Try to load from skills.json
             const response = await fetch('data/skills.json');
-            
+
             if (!response.ok) {
                 throw new Error('Failed to load skills');
             }
-            
+
             const skillCategories = await response.json();
-            
+
             // Clear loading message
             skillsContainer.innerHTML = '';
-            
+
             // Create skill category cards
             skillCategories.forEach((category, index) => {
                 const categoryCard = createSkillCategoryCard(category, index);
                 skillsContainer.appendChild(categoryCard);
             });
-            
+
         } catch (error) {
             console.error('Error loading skills:', error);
             skillsContainer.innerHTML = '<p class="loading">Failed to load skills.</p>';
         }
     }
-    
+
     // ============================================
     // LOAD EXPERIENCE FROM EXTERNAL FILE
     // ============================================
     async function loadExperience() {
         const experienceContainer = document.getElementById('experienceContainer');
-        
+
         try {
             // Try to load from experience.json
             const response = await fetch('data/experience.json');
-            
+
             if (!response.ok) {
                 throw new Error('Failed to load experience');
             }
-            
+
             const experiences = await response.json();
-            
+
             // Clear loading message
             experienceContainer.innerHTML = '';
-            
+
             // Create experience timeline items
             experiences.forEach(experience => {
                 const item = createExperienceItem(experience);
                 experienceContainer.appendChild(item);
             });
-            
+
         } catch (error) {
             console.error('Error loading experience:', error);
             experienceContainer.innerHTML = '<p class="loading">Failed to load experience.</p>';
         }
     }
-    
+
     // ============================================
     // LOAD EDUCATION FROM EXTERNAL FILE
     // ============================================
     async function loadEducation() {
         const educationContainer = document.getElementById('educationContainer');
-        
+
         try {
             // Try to load from education.json
             const response = await fetch('data/education.json');
-            
+
             if (!response.ok) {
                 throw new Error('Failed to load education');
             }
-            
+
             const education = await response.json();
-            
+
             // Clear loading message
             educationContainer.innerHTML = '';
-            
+
             // Create education timeline items
             education.forEach(edu => {
                 const item = createEducationItem(edu);
                 educationContainer.appendChild(item);
             });
-            
+
         } catch (error) {
             console.error('Error loading education:', error);
             educationContainer.innerHTML = '<p class="loading">Failed to load education.</p>';
         }
     }
-    
+
     // ============================================
     // LOAD HOBBIES FROM EXTERNAL FILE
     // ============================================
     async function loadHobbies() {
         const hobbiesContainer = document.getElementById('hobbiesContainer');
-        
+
         try {
             // Try to load from hobbies.json
             const response = await fetch('data/hobbies.json');
-            
+
             if (!response.ok) {
                 throw new Error('Failed to load hobbies');
             }
-            
+
             const hobbies = await response.json();
-            
+
             // Clear loading message
             hobbiesContainer.innerHTML = '';
-            
+
             // Create hobby cards
             hobbies.forEach(hobby => {
                 const card = createHobbyCard(hobby);
                 hobbiesContainer.appendChild(card);
             });
-            
+
         } catch (error) {
             console.error('Error loading hobbies:', error);
             hobbiesContainer.innerHTML = '<p class="loading">Failed to load hobbies.</p>';
         }
     }
-    
+
     // ============================================
     // LOAD MY STORY FROM EXTERNAL FILE
     // ============================================
@@ -268,87 +268,87 @@
             storyContainer.innerHTML = '<p class="loading">Failed to load story.</p>';
         }
     }
-    
+
     // ============================================
     // LOAD ASK ME ABOUT FROM EXTERNAL FILE
     // ============================================
     async function loadAskMe() {
         const askMeContainer = document.getElementById('askMeContainer');
-        
+
         try {
             // Try to load from askme.json
             const response = await fetch('data/askme.json');
-            
+
             if (!response.ok) {
                 throw new Error('Failed to load ask me topics');
             }
-            
+
             const topics = await response.json();
-            
+
             // Clear loading message
             askMeContainer.innerHTML = '';
-            
+
             // Create ask me cards
             topics.forEach(topic => {
                 const card = createAskMeCard(topic);
                 askMeContainer.appendChild(card);
             });
-            
+
         } catch (error) {
             console.error('Error loading ask me topics:', error);
             askMeContainer.innerHTML = '<p class="loading">Failed to load topics.</p>';
         }
     }
-    
+
     // ============================================
     // LOAD LESSONS FROM EXTERNAL FILE
     // ============================================
     async function loadLessons() {
         const lessonsContainer = document.getElementById('lessonsContainer');
-        
+
         try {
             // Try to load from lessons.json
             const response = await fetch('data/lessons.json');
-            
+
             if (!response.ok) {
                 throw new Error('Failed to load lessons');
             }
-            
+
             const lessons = await response.json();
-            
+
             // Clear loading message
             lessonsContainer.innerHTML = '';
-            
+
             // Create lesson cards
             lessons.forEach(lesson => {
                 const card = createLessonCard(lesson);
                 lessonsContainer.appendChild(card);
             });
-            
+
         } catch (error) {
             console.error('Error loading lessons:', error);
             lessonsContainer.innerHTML = '<p class="loading">Failed to load lessons.</p>';
         }
     }
-    
+
     // ============================================
     // CREATE PROJECT CARD
     // ============================================
     function createProjectCard(project) {
         const card = document.createElement('div');
         card.className = 'card';
-        
+
         // If project has a link, make it clickable
         if (project.link) {
             card.style.cursor = 'pointer';
-            card.addEventListener('click', function() {
+            card.addEventListener('click', function () {
                 window.open(project.link, '_blank');
             });
-            
+
             // Add visual indicator for clickable cards
             card.classList.add('clickable');
         }
-        
+
         // Create image container
         let imageHTML = '';
         if (project.image) {
@@ -365,7 +365,7 @@
                 </div>
             `;
         }
-        
+
         card.innerHTML = `
             ${imageHTML}
             <div class="card-content">
@@ -375,28 +375,28 @@
             </div>
             ${project.link ? '<span class="project-link-icon">🔗</span>' : ''}
         `;
-        
+
         return card;
     }
-    
+
     // ============================================
     // CREATE CERTIFICATION CARD
     // ============================================
     function createCertificationCard(certification) {
         const card = document.createElement('div');
         card.className = 'card';
-        
+
         // If certification has a link, make it clickable
         if (certification.link) {
             card.style.cursor = 'pointer';
-            card.addEventListener('click', function() {
+            card.addEventListener('click', function () {
                 window.open(certification.link, '_blank');
             });
-            
+
             // Add visual indicator for clickable cards
             card.classList.add('clickable');
         }
-        
+
         card.innerHTML = `
             <div class="card-content">
                 <h3>${escapeHtml(certification.title)}</h3>
@@ -405,10 +405,10 @@
             </div>
             ${certification.link ? '<span class="project-link-icon">🔗</span>' : ''}
         `;
-        
+
         return card;
     }
-    
+
     // ============================================
     // CREATE SKILL CATEGORY CARD (PILL STYLE)
     // ============================================
@@ -440,41 +440,41 @@
 
         return categoryCard;
     }
-    
+
     // ============================================
     // CREATE EXPERIENCE ITEM
     // ============================================
     function createExperienceItem(experience) {
         const item = document.createElement('div');
         item.className = 'timeline-item';
-        
+
         item.innerHTML = `
             <h3>${escapeHtml(experience.title)}</h3>
             <p class="company">${escapeHtml(experience.company)}</p>
             <p class="date">${escapeHtml(experience.date)} | ${escapeHtml(experience.location)}</p>
             <p>${escapeHtml(experience.description)}</p>
         `;
-        
+
         return item;
     }
-    
+
     // ============================================
     // CREATE EDUCATION ITEM
     // ============================================
     function createEducationItem(education) {
         const item = document.createElement('div');
         item.className = 'timeline-item';
-        
+
         item.innerHTML = `
             <h3>${escapeHtml(education.degree)}</h3>
             <p class="company">${escapeHtml(education.institution)}</p>
             <p class="date">${escapeHtml(education.date)} | ${escapeHtml(education.location)}</p>
             <p>${escapeHtml(education.description)}</p>
         `;
-        
+
         return item;
     }
-    
+
     // ============================================
     // CREATE HOBBY CARD
     // ============================================
@@ -505,7 +505,7 @@
 
         return card;
     }
-    
+
     // ============================================
     // CREATE STORY CARD (ACCORDION STYLE)
     // ============================================
@@ -528,7 +528,7 @@
 
         // Add click event to toggle accordion
         const header = card.querySelector('.story-card-header');
-        header.addEventListener('click', function() {
+        header.addEventListener('click', function () {
             // Close other cards
             const allCards = document.querySelectorAll('.story-card');
             allCards.forEach(otherCard => {
@@ -543,39 +543,39 @@
 
         return card;
     }
-    
+
     // ============================================
     // CREATE ASK ME CARD
     // ============================================
     function createAskMeCard(topic) {
         const card = document.createElement('div');
         card.className = 'ask-me-card';
-        
+
         card.innerHTML = `
             <div class="ask-me-icon">${escapeHtml(topic.icon)}</div>
             <h3>${escapeHtml(topic.title)}</h3>
             <p>${escapeHtml(topic.description)}</p>
         `;
-        
+
         return card;
     }
-    
+
     // ============================================
     // CREATE LESSON CARD
     // ============================================
     function createLessonCard(lesson) {
         const card = document.createElement('div');
         card.className = 'lesson-card';
-        
+
         // Build tags HTML
         let tagsHTML = '';
         lesson.tags.forEach(tag => {
-            const tagClass = tag.type === 'failure' ? 'lesson-tag failure' : 
-                           tag.type === 'mistake' ? 'lesson-tag mistake' : 
-                           'lesson-tag';
+            const tagClass = tag.type === 'failure' ? 'lesson-tag failure' :
+                tag.type === 'mistake' ? 'lesson-tag mistake' :
+                    'lesson-tag';
             tagsHTML += `<span class="${tagClass}">${escapeHtml(tag.name)}</span>`;
         });
-        
+
         card.innerHTML = `
             <div class="lesson-number">${escapeHtml(lesson.number)}</div>
             <h3>${escapeHtml(lesson.title)}</h3>
@@ -587,7 +587,7 @@
                 <strong>💡 The Lesson:</strong> ${escapeHtml(lesson.lesson)}
             </div>
         `;
-        
+
         return card;
     }
     // ============================================
@@ -598,36 +598,36 @@
         div.textContent = text;
         return div.innerHTML;
     }
-    
+
     // ============================================
     // THEME TOGGLE
     // ============================================
     function initThemeToggle() {
         const themeToggle = document.getElementById('themeToggle');
-        
+
         if (!themeToggle) return;
-        
+
         // Load saved theme preference
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             document.documentElement.setAttribute('data-theme', savedTheme);
             themeToggle.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
         }
-        
+
         // Toggle theme on click
-        themeToggle.addEventListener('click', function() {
+        themeToggle.addEventListener('click', function () {
             const html = document.documentElement;
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
+
             html.setAttribute('data-theme', newTheme);
             this.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-            
+
             // Save preference to localStorage
             localStorage.setItem('theme', newTheme);
         });
     }
-    
+
     // ============================================
     // HAMBURGER MENU TOGGLE
     // ============================================
@@ -635,30 +635,30 @@
         const hamburger = document.getElementById('navHamburger');
         const navMenu = document.getElementById('navMenu');
         const navLinks = document.querySelectorAll('.nav-btn');
-        
+
         if (!hamburger || !navMenu) return;
-        
+
         // Toggle menu
-        hamburger.addEventListener('click', function(e) {
+        hamburger.addEventListener('click', function (e) {
             e.stopPropagation();
             this.classList.toggle('active');
             navMenu.classList.toggle('active');
             document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
         });
-        
+
         // Close menu when clicking nav link
         navLinks.forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function () {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
                 document.body.style.overflow = '';
             });
         });
-        
+
         // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (navMenu.classList.contains('active') && 
-                !navMenu.contains(e.target) && 
+        document.addEventListener('click', function (e) {
+            if (navMenu.classList.contains('active') &&
+                !navMenu.contains(e.target) &&
                 !hamburger.contains(e.target)) {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
@@ -678,7 +678,7 @@
         if (!dropdown || !dropdownToggle) return;
 
         // Toggle dropdown on click (for touch devices)
-        dropdownToggle.addEventListener('click', function(e) {
+        dropdownToggle.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
             dropdown.classList.toggle('active');
@@ -686,7 +686,7 @@
 
         // Close dropdown when clicking dropdown items
         dropdownItems.forEach(item => {
-            item.addEventListener('click', function() {
+            item.addEventListener('click', function () {
                 dropdown.classList.remove('active');
 
                 // Close mobile menu if open
@@ -701,7 +701,7 @@
         });
 
         // Close dropdown when clicking outside
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             if (dropdown.classList.contains('active') &&
                 !dropdown.contains(e.target)) {
                 dropdown.classList.remove('active');
@@ -709,7 +709,7 @@
         });
 
         // Close dropdown on Escape key
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && dropdown.classList.contains('active')) {
                 dropdown.classList.remove('active');
             }
@@ -721,14 +721,14 @@
     // ============================================
     function initContactButton() {
         const contactBtn = document.getElementById('contactBtn');
-        
+
         if (!contactBtn) return;
-        
-        contactBtn.addEventListener('click', function() {
+
+        contactBtn.addEventListener('click', function () {
             window.location.href = 'mailto:your.email@gmail.com';
         });
     }
-    
+
     // ============================================
     // SMOOTH SCROLL & ACTIVE NAV
     // ============================================
@@ -776,7 +776,7 @@
 
         // Smooth scroll for all navigation links (nav bar + footer)
         allNavLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
+            link.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
 
                 // Only handle hash links (internal navigation)
@@ -837,7 +837,7 @@
         }
 
         // Handle browser back/forward buttons
-        window.addEventListener('popstate', function() {
+        window.addEventListener('popstate', function () {
             const hash = window.location.hash;
             if (hash) {
                 const targetSection = document.querySelector(hash);
@@ -855,11 +855,11 @@
         handleInitialHash();
         updateActiveNav();
     }
-    
+
     // ============================================
     // IMMERSIVE HERO ANIMATIONS
     // ============================================
-    
+
     // Typewriter Effect
     function initTypewriter() {
         const phrases = [
@@ -869,17 +869,17 @@
             'make complexity simple',
             'build AI that matters'
         ];
-        
+
         const typewriterElement = document.getElementById('typewriter');
         if (!typewriterElement) return;
-        
+
         let phraseIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
-        
+
         function type() {
             const currentPhrase = phrases[phraseIndex];
-            
+
             if (isDeleting) {
                 typewriterElement.textContent = currentPhrase.substring(0, charIndex - 1);
                 charIndex--;
@@ -887,9 +887,9 @@
                 typewriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
                 charIndex++;
             }
-            
+
             let typeSpeed = isDeleting ? 50 : 100;
-            
+
             if (!isDeleting && charIndex === currentPhrase.length) {
                 typeSpeed = 2000; // Pause at end
                 isDeleting = true;
@@ -898,13 +898,13 @@
                 phraseIndex = (phraseIndex + 1) % phrases.length;
                 typeSpeed = 500; // Pause before next phrase
             }
-            
+
             setTimeout(type, typeSpeed);
         }
-        
+
         type();
     }
-    
+
     // Count Up Animation for Metrics
     function initMetricsCounter() {
         const metrics = document.querySelectorAll('.metric-value');
@@ -946,13 +946,13 @@
             }
         });
     }
-    
+
     function animateCounter(element, target) {
         let current = 0;
         const increment = target / 50;
         const duration = 2000;
         const stepTime = duration / 50;
-        
+
         const timer = setInterval(() => {
             current += increment;
             if (current >= target) {
@@ -963,576 +963,396 @@
             }
         }, stepTime);
     }
-    
-    // Antigravity Background Animation (Google-style)
-    function initParticleBackground() {
-        try {
-            const canvas = document.getElementById('particleCanvas');
-            if (!canvas) {
-                console.warn('Particle canvas not found');
-                return;
-            }
-            
-            console.log('Initializing data science antigravity background effect');
-            const ctx = canvas.getContext('2d');
-            let particles = [];
-            let blobs = [];
-            let dataPoints = [];
-            let networkNodes = [];
-            let floatingNumbers = [];
-            let ripples = [];
-            let mouse = { x: 0, y: 0 };
-            let animationFrameId;
-            let isMouseActive = false;
-            
-            // Data Science Symbols
-            const dataSymbols = ['Σ', 'π', 'σ', 'μ', 'θ', 'λ', 'α', 'β', '∞', '≈', '≠', '≤', '≥'];
-            const dataMetrics = ['92%', '0.95', 'R²', 'p<0.01', 'F1', 'AUC', 'MAE', 'RMSE'];
-            
-            // Particle class - floats upward (antigravity) - now data points
-            class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = canvas.height + Math.random() * 200; // Start below canvas
-                this.size = Math.random() * 4 + 1;
-                this.speedX = (Math.random() - 0.5) * 0.3; // Horizontal drift
-                this.speedY = -(Math.random() * 0.5 + 0.3); // Upward float (negative = up)
-                this.opacity = Math.random() * 0.4 + 0.3;
-                this.wobble = Math.random() * Math.PI * 2; // For organic movement
-                this.wobbleSpeed = Math.random() * 0.02 + 0.01;
-            }
-            
-            update() {
-                // Organic wobble motion
-                this.wobble += this.wobbleSpeed;
-                const wobbleOffset = Math.sin(this.wobble) * 2;
-                
-                this.x += this.speedX + wobbleOffset;
-                this.y += this.speedY;
-                
-                // Smooth, subtle mouse interaction
-                if (isMouseActive) {
-                    const dx = mouse.x - this.x;
-                    const dy = mouse.y - this.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 120 && distance > 0) {
-                        // Smooth repulsion with easing
-                        const force = Math.pow((120 - distance) / 120, 2) * 0.3;
-                        this.x -= (dx / distance) * force;
-                        this.y -= (dy / distance) * force;
-                    }
-                }
-                
-                // Wrap around edges horizontally
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                
-                // Reset when particles float off top
-                if (this.y < -50) {
-                    this.y = canvas.height + 50;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
-            
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.opacity;
-                
-                // Simple, clean point
-                ctx.fillStyle = `rgba(59, 130, 246, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-                
-                ctx.restore();
-            }
-            }
-            
-            // Blob class - larger floating shapes (data clusters)
-            class Blob {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = canvas.height + Math.random() * 300;
-                this.size = Math.random() * 80 + 40;
-                this.speedX = (Math.random() - 0.5) * 0.2;
-                this.speedY = -(Math.random() * 0.3 + 0.2);
-                this.opacity = Math.random() * 0.12 + 0.05;
-                this.wobble = Math.random() * Math.PI * 2;
-                this.wobbleSpeed = Math.random() * 0.01 + 0.005;
-                this.rotation = Math.random() * Math.PI * 2;
-                this.rotationSpeed = (Math.random() - 0.5) * 0.01;
-                this.colorHue = Math.random() * 60 + 200; // Blue to purple range
-            }
-            
-            update() {
-                this.wobble += this.wobbleSpeed;
-                this.rotation += this.rotationSpeed;
-                
-                const wobbleOffset = Math.sin(this.wobble) * 3;
-                this.x += this.speedX + wobbleOffset;
-                this.y += this.speedY;
-                
-                // Subtle mouse interaction
-                if (isMouseActive) {
-                    const dx = mouse.x - this.x;
-                    const dy = mouse.y - this.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 150 && distance > 0) {
-                        const force = Math.pow((150 - distance) / 150, 2) * 0.2;
-                        this.x -= (dx / distance) * force;
-                        this.y -= (dy / distance) * force;
-                    }
-                }
-                
-                // Wrap around edges
-                if (this.x > canvas.width + this.size) this.x = -this.size;
-                if (this.x < -this.size) this.x = canvas.width + this.size;
-                
-                if (this.y < -this.size) {
-                    this.y = canvas.height + this.size;
-                    this.x = Math.random() * canvas.width;
-                }
-            }
-            
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.opacity;
-                
-                // Simple, subtle blob
-                const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
-                gradient.addColorStop(0, `rgba(59, 130, 246, ${this.opacity * 0.3})`);
-                gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
-                ctx.fillStyle = gradient;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-                
-                ctx.restore();
-            }
-            }
-            
-            // Network Node class - represents neural network nodes
-            class NetworkNode {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = canvas.height + Math.random() * 400;
-                    this.size = Math.random() * 8 + 4;
-                    this.speedX = (Math.random() - 0.5) * 0.15;
-                    this.speedY = -(Math.random() * 0.4 + 0.2);
-                    this.opacity = Math.random() * 0.3 + 0.2;
-                    this.pulse = Math.random() * Math.PI * 2;
-                    this.pulseSpeed = Math.random() * 0.03 + 0.02;
-                }
-                
-                update() {
-                    this.pulse += this.pulseSpeed;
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    
-                    // Smooth mouse interaction
-                    if (isMouseActive) {
-                        const dx = mouse.x - this.x;
-                        const dy = mouse.y - this.y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        if (distance < 100 && distance > 0) {
-                            const force = Math.pow((100 - distance) / 100, 2) * 0.25;
-                            this.x -= (dx / distance) * force;
-                            this.y -= (dy / distance) * force;
-                        }
-                    }
-                    
-                    if (this.x > canvas.width) this.x = 0;
-                    if (this.x < 0) this.x = canvas.width;
-                    if (this.y < -50) {
-                        this.y = canvas.height + 50;
-                        this.x = Math.random() * canvas.width;
-                    }
-                }
-                
-                draw() {
-                    ctx.save();
-                    const pulseSize = this.size + Math.sin(this.pulse) * 1;
-                    ctx.globalAlpha = this.opacity;
-                    
-                    // Simple, clean node
-                    ctx.fillStyle = `rgba(147, 51, 234, ${this.opacity})`;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, pulseSize, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    ctx.restore();
-                }
-            }
-            
-            // Floating Number class - statistical metrics
-            class FloatingNumber {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = canvas.height + Math.random() * 300;
-                    this.text = dataMetrics[Math.floor(Math.random() * dataMetrics.length)];
-                    this.speedX = (Math.random() - 0.5) * 0.2;
-                    this.speedY = -(Math.random() * 0.3 + 0.15);
-                    this.opacity = Math.random() * 0.4 + 0.3;
-                    this.rotation = (Math.random() - 0.5) * 0.1;
-                    this.rotationSpeed = (Math.random() - 0.5) * 0.01;
-                    this.size = Math.random() * 6 + 10;
-                }
-                
-                update() {
-                    this.rotation += this.rotationSpeed;
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    
-                    if (this.x > canvas.width + 50) this.x = -50;
-                    if (this.x < -50) this.x = canvas.width + 50;
-                    if (this.y < -50) {
-                        this.y = canvas.height + 50;
-                        this.x = Math.random() * canvas.width;
-                        this.text = dataMetrics[Math.floor(Math.random() * dataMetrics.length)];
-                    }
-                }
-                
-                draw() {
-                    ctx.save();
-                    ctx.translate(this.x, this.y);
-                    ctx.rotate(this.rotation);
-                    
-                    // Text shadow/glow
-                    ctx.shadowBlur = 8;
-                    ctx.shadowColor = 'rgba(16, 185, 129, 0.5)';
-                    ctx.shadowOffsetX = 0;
-                    ctx.shadowOffsetY = 0;
-                    
-                    // Background circle for better visibility
-                    ctx.globalAlpha = this.opacity * 0.2;
-                    ctx.fillStyle = 'rgba(16, 185, 129, 1)';
-                    ctx.beginPath();
-                    ctx.arc(0, 0, this.size * 0.8, 0, Math.PI * 2);
-                    ctx.fill();
-                    
-                    // Text with gradient
-                    ctx.globalAlpha = this.opacity;
-                    const textGradient = ctx.createLinearGradient(-this.size/2, 0, this.size/2, 0);
-                    textGradient.addColorStop(0, 'rgba(16, 185, 129, 1)');
-                    textGradient.addColorStop(0.5, 'rgba(5, 150, 105, 1)');
-                    textGradient.addColorStop(1, 'rgba(16, 185, 129, 1)');
-                    ctx.fillStyle = textGradient;
-                    ctx.font = `bold ${this.size}px 'Inter', monospace`;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText(this.text, 0, 0);
-                    ctx.restore();
-                }
-            }
-            
-            // Chart Bar class - mini bar chart elements
-            class ChartBar {
-                constructor() {
-                    this.x = Math.random() * canvas.width;
-                    this.y = canvas.height + Math.random() * 200;
-                    this.width = Math.random() * 15 + 8;
-                    this.height = Math.random() * 40 + 20;
-                    this.speedX = (Math.random() - 0.5) * 0.2;
-                    this.speedY = -(Math.random() * 0.4 + 0.2);
-                    this.opacity = Math.random() * 0.25 + 0.15;
-                    this.colorIndex = Math.floor(Math.random() * 3);
-                }
-                
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    
-                    if (this.x > canvas.width + 50) this.x = -50;
-                    if (this.x < -50) this.x = canvas.width + 50;
-                    if (this.y < -this.height) {
-                        this.y = canvas.height + this.height;
-                        this.x = Math.random() * canvas.width;
-                        this.height = Math.random() * 40 + 20;
-                    }
-                }
-                
-                draw() {
-                    ctx.save();
-                    const barX = this.x - this.width/2;
-                    const barY = this.y - this.height;
-                    
-                    // Shadow
-                    ctx.shadowBlur = 6;
-                    ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
-                    ctx.shadowOffsetY = 2;
-                    
-                    // Bar gradient
-                    const colors = [
-                        ['rgba(59, 130, 246, 1)', 'rgba(37, 99, 235, 1)'],   // Blue gradient
-                        ['rgba(147, 51, 234, 1)', 'rgba(126, 34, 206, 1)'],   // Purple gradient
-                        ['rgba(16, 185, 129, 1)', 'rgba(5, 150, 105, 1)']     // Green gradient
-                    ];
-                    const gradient = ctx.createLinearGradient(barX, barY, barX, barY + this.height);
-                    gradient.addColorStop(0, colors[this.colorIndex][0]);
-                    gradient.addColorStop(1, colors[this.colorIndex][1]);
-                    
-                    ctx.globalAlpha = this.opacity;
-                    ctx.fillStyle = gradient;
-                    ctx.fillRect(barX, barY, this.width, this.height);
-                    
-                    // Top highlight
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-                    ctx.fillRect(barX, barY, this.width, this.height * 0.2);
-                    
-                    // Border
-                    ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity * 0.2})`;
-                    ctx.lineWidth = 1;
-                    ctx.strokeRect(barX, barY, this.width, this.height);
-                    
-                    ctx.restore();
-                }
-            }
-            
-            // Create particles - reduced for minimal look
-            function createParticles() {
-                const particleCount = Math.min(40, Math.floor(canvas.width / 25));
-                particles = [];
-                for (let i = 0; i < particleCount; i++) {
-                    particles.push(new Particle());
-                }
-            }
-            
-            // Create blobs - reduced
-            function createBlobs() {
-                const blobCount = Math.min(2, Math.floor(canvas.width / 500));
-                blobs = [];
-                for (let i = 0; i < blobCount; i++) {
-                    blobs.push(new Blob());
-                }
-            }
-            
-            // Create network nodes - reduced
-            function createNetworkNodes() {
-                const nodeCount = Math.min(12, Math.floor(canvas.width / 120));
-                networkNodes = [];
-                for (let i = 0; i < nodeCount; i++) {
-                    networkNodes.push(new NetworkNode());
-                }
-            }
-            
-            // Create floating numbers - reduced
-            function createFloatingNumbers() {
-                const numberCount = Math.min(6, Math.floor(canvas.width / 200));
-                floatingNumbers = [];
-                for (let i = 0; i < numberCount; i++) {
-                    floatingNumbers.push(new FloatingNumber());
-                }
-            }
-            
-            // Remove chart bars for cleaner look
-            function createChartBars() {
-                dataPoints = [];
-            }
-            
-            // Set canvas size
-            function resizeCanvas() {
-                canvas.width = canvas.offsetWidth;
-                canvas.height = canvas.offsetHeight;
-                // Recreate all elements on resize
-                createParticles();
-                createBlobs();
-                createNetworkNodes();
-                createFloatingNumbers();
-                createChartBars();
-            }
-            
-            // Minimal ripple effect
-            class Ripple {
-                constructor(x, y) {
-                    this.x = x;
-                    this.y = y;
-                    this.radius = 0;
-                    this.maxRadius = 150;
-                    this.opacity = 0.3;
-                    this.speed = 4;
-                }
-                
-                update() {
-                    this.radius += this.speed;
-                    this.opacity -= 0.015;
-                    return this.radius < this.maxRadius && this.opacity > 0;
-                }
-                
-                draw() {
-                    ctx.save();
-                    ctx.globalAlpha = this.opacity;
-                    ctx.strokeStyle = `rgba(59, 130, 246, ${this.opacity})`;
-                    ctx.lineWidth = 1;
-                    ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                    ctx.stroke();
-                    ctx.restore();
-                }
-            }
-            
-            // Track mouse position for smooth interaction
-            canvas.addEventListener('mousemove', (e) => {
-                const rect = canvas.getBoundingClientRect();
-                mouse.x = e.clientX - rect.left;
-                mouse.y = e.clientY - rect.top;
-                isMouseActive = true;
-            });
-            
-            canvas.addEventListener('mouseleave', () => {
-                isMouseActive = false;
-            });
-            
-            // Click interaction - minimal ripple only
-            canvas.addEventListener('click', (e) => {
-                const rect = canvas.getBoundingClientRect();
-                const clickX = e.clientX - rect.left;
-                const clickY = e.clientY - rect.top;
-                
-                // Create subtle ripple
-                ripples.push(new Ripple(clickX, clickY));
-            });
-            
-            // Touch support for mobile
-            canvas.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                const touch = e.touches[0];
-                const rect = canvas.getBoundingClientRect();
-                const touchX = touch.clientX - rect.left;
-                const touchY = touch.clientY - rect.top;
-                
-                mouse.x = touchX;
-                mouse.y = touchY;
-                isMouseActive = true;
-                
-                // Create ripple on touch
-                ripples.push(new Ripple(touchX, touchY));
-            });
-            
-            canvas.addEventListener('touchmove', (e) => {
-                e.preventDefault();
-                const touch = e.touches[0];
-                const rect = canvas.getBoundingClientRect();
-                mouse.x = touch.clientX - rect.left;
-                mouse.y = touch.clientY - rect.top;
-            });
-            
-            canvas.addEventListener('touchend', () => {
-                isMouseActive = false;
-            });
-            
-            // Initialize canvas and particles
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-            
-            // Connect particles with lines - minimal and clean
-            function connectParticles() {
-                // Connect nearby particles with subtle lines
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        const dx = particles[i].x - particles[j].x;
-                        const dy = particles[i].y - particles[j].y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        
-                        if (distance < 80) {
-                            const opacity = (1 - distance / 80) * 0.08;
-                            ctx.strokeStyle = `rgba(59, 130, 246, ${opacity})`;
-                            ctx.lineWidth = 0.5;
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.stroke();
-                        }
-                    }
-                }
-                
-                // Connect nearby network nodes
-                for (let i = 0; i < networkNodes.length; i++) {
-                    for (let j = i + 1; j < networkNodes.length; j++) {
-                        const dx = networkNodes[i].x - networkNodes[j].x;
-                        const dy = networkNodes[i].y - networkNodes[j].y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-                        
-                        if (distance < 120) {
-                            const opacity = (1 - distance / 120) * 0.12;
-                            ctx.strokeStyle = `rgba(147, 51, 234, ${opacity})`;
-                            ctx.lineWidth = 0.8;
-                            ctx.beginPath();
-                            ctx.moveTo(networkNodes[i].x, networkNodes[i].y);
-                            ctx.lineTo(networkNodes[j].x, networkNodes[j].y);
-                            ctx.stroke();
-                        }
-                    }
-                }
-            }
-            
-            // Animation loop
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Update and draw ripples
-                ripples = ripples.filter(ripple => {
-                    const alive = ripple.update();
-                    if (alive) ripple.draw();
-                    return alive;
-                });
-                
-                // Draw blobs first (background layer)
-                blobs.forEach(blob => {
-                    blob.update();
-                    blob.draw();
-                });
-                
-                // Draw network nodes
-                networkNodes.forEach(node => {
-                    node.update();
-                    node.draw();
-                });
-                
-                // Draw particles (data points)
-                particles.forEach(particle => {
-                    particle.update();
-                    particle.draw();
-                });
-                
-                // Draw floating numbers (metrics)
-                floatingNumbers.forEach(number => {
-                    number.update();
-                    number.draw();
-                });
-                
-                // Connect elements (network connections)
-                connectParticles();
-                
-                // Remove mouse glow for cleaner look
-                
-                animationFrameId = requestAnimationFrame(animate);
-            }
-            
-            animate();
-            
-            // Cleanup
-            return () => {
-                cancelAnimationFrame(animationFrameId);
-                window.removeEventListener('resize', resizeCanvas);
-            };
-        } catch (error) {
-            console.error('Error initializing particle background:', error);
-            // Don't break the rest of the site if particle background fails
+
+    // Antigravity Background Animation (Physics-based)
+    function initAntigravityBackground() {
+        const canvas = document.getElementById('particleCanvas');
+        const heroBackground = document.querySelector('.hero-background');
+
+        if (!canvas || !heroBackground) {
+            console.warn('Canvas or Hero background not found');
+            return;
         }
+
+        console.log('Initializing Antigravity Physics Background');
+        const ctx = canvas.getContext('2d');
+
+        // Physics Constants
+        const FRICTION = 0.96;
+        const MOUSE_REPULSION_RADIUS = 250;
+        const MOUSE_REPULSION_FORCE = 1.5;
+        const FLOAT_SPEED = 0.2;
+        const RETURN_SPEED = 0.02;
+
+        let elements = [];
+        let mouse = { x: -1000, y: -1000 };
+        let animationFrameId;
+
+        // Data Science Symbols & Metrics
+        const symbols = ['Σ', 'π', 'σ', 'μ', 'θ', 'λ', 'α', 'β', '∞', '∫', '∇', '∂', '∆', 'Ω', 'ε', 'η', 'γ', 'δ'];
+        const metrics = [
+            'R²', 'p<0.05', 'F1', 'AUC', 'RMSE', 'MAE', '95%', '0.01',
+            'y=mx+b', 'P(A|B)', 'σ²', 'χ²', 'log(x)', 'e^x', 'ReLU', 'σ(z)', 'MSE',
+            '∇J(θ)', 'softmax', 'H(p,q)', 'KL(P||Q)', 'Attention(Q,K,V)',
+            'x_{t+1}', 'L₁', 'L₂', 'tanh', 'sigmoid', 'Adam'
+        ];
+
+        class PhysicsElement {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.originX = x;
+                this.originY = y;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.size = 0;
+                this.color = '';
+                this.opacity = 0;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.rotationSpeed = (Math.random() - 0.5) * 0.02;
+            }
+
+            update() {
+                // Physics: Mouse Repulsion
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < MOUSE_REPULSION_RADIUS) {
+                    const angle = Math.atan2(dy, dx);
+                    const force = (MOUSE_REPULSION_RADIUS - distance) / MOUSE_REPULSION_RADIUS;
+                    const repulsion = force * MOUSE_REPULSION_FORCE;
+
+                    this.vx -= Math.cos(angle) * repulsion;
+                    this.vy -= Math.sin(angle) * repulsion;
+                }
+
+                // Physics: Return to origin (Gravity/Antigravity anchor)
+                const homeDx = this.originX - this.x;
+                const homeDy = this.originY - this.y;
+                this.vx += homeDx * RETURN_SPEED * 0.05;
+                this.vy += homeDy * RETURN_SPEED * 0.05;
+
+                // Physics: Float/Drift
+                this.vx += (Math.random() - 0.5) * 0.1;
+                this.vy += (Math.random() - 0.5) * 0.1;
+
+                // Apply Velocity & Friction
+                this.x += this.vx;
+                this.y += this.vy;
+                this.vx *= FRICTION;
+                this.vy *= FRICTION;
+
+                // Rotation
+                this.rotation += this.rotationSpeed;
+            }
+
+            draw() {
+                // Override in subclasses
+            }
+        }
+
+        class DataSymbol extends PhysicsElement {
+            constructor(x, y, symbol) {
+                super(x, y);
+                this.symbol = symbol;
+                this.size = Math.random() * 14 + 10;
+                this.opacity = Math.random() * 0.3 + 0.1;
+                // Theme colors (blue/purple)
+                this.isAccent = Math.random() > 0.7;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation);
+
+                ctx.font = `${this.size}px 'Inter', sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+
+                if (this.isAccent) {
+                    ctx.fillStyle = `rgba(147, 51, 234, ${this.opacity})`; // Purple
+                } else {
+                    ctx.fillStyle = `rgba(59, 130, 246, ${this.opacity})`; // Blue
+                }
+
+                ctx.fillText(this.symbol, 0, 0);
+                ctx.restore();
+            }
+        }
+
+        class DataMetric extends PhysicsElement {
+            constructor(x, y, text) {
+                super(x, y);
+                this.text = text;
+                this.size = Math.random() * 10 + 10;
+                this.opacity = Math.random() * 0.4 + 0.2;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                // Less rotation for text to keep it readable
+                ctx.rotate(this.rotation * 0.5);
+
+                ctx.font = `bold ${this.size}px 'Inter', monospace`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+
+                // Green/Teal for metrics
+                ctx.fillStyle = `rgba(16, 185, 129, ${this.opacity})`;
+
+                ctx.fillText(this.text, 0, 0);
+                ctx.restore();
+            }
+        }
+
+        class ParticleDot extends PhysicsElement {
+            constructor(x, y) {
+                super(x, y);
+                this.size = Math.random() * 2 + 1;
+                this.opacity = Math.random() * 0.3 + 0.1;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = 'rgba(59, 130, 246, 1)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        class SimpleChart extends PhysicsElement {
+            constructor(x, y) {
+                super(x, y);
+                this.width = Math.random() * 20 + 15;
+                this.height = Math.random() * 15 + 10;
+                this.opacity = Math.random() * 0.3 + 0.1;
+                this.type = Math.random() > 0.5 ? 'bar' : 'line';
+                this.bars = [Math.random(), Math.random(), Math.random()];
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * 0.5);
+                ctx.globalAlpha = this.opacity;
+
+                if (this.type === 'bar') {
+                    const barWidth = this.width / 3;
+                    ctx.fillStyle = 'rgba(59, 130, 246, 1)'; // Blue
+                    this.bars.forEach((h, i) => {
+                        const barHeight = h * this.height;
+                        ctx.fillRect(i * barWidth - this.width / 2, this.height / 2 - barHeight, barWidth - 2, barHeight);
+                    });
+                } else {
+                    ctx.strokeStyle = 'rgba(147, 51, 234, 1)'; // Purple
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(-this.width / 2, this.height / 2 - this.bars[0] * this.height);
+                    ctx.lineTo(0, this.height / 2 - this.bars[1] * this.height);
+                    ctx.lineTo(this.width / 2, this.height / 2 - this.bars[2] * this.height);
+                    ctx.stroke();
+                }
+
+                ctx.restore();
+            }
+        }
+
+        class NeuralNetwork extends PhysicsElement {
+            constructor(x, y) {
+                super(x, y);
+                this.width = 30;
+                this.height = 30;
+                this.opacity = Math.random() * 0.3 + 0.15;
+                this.layers = [2, 3, 2]; // Input, Hidden, Output
+                this.nodeRadius = 2;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * 0.2); // Slower rotation
+                ctx.globalAlpha = this.opacity;
+
+                const layerGap = this.width / (this.layers.length - 1);
+
+                // Draw connections first
+                ctx.strokeStyle = 'rgba(147, 51, 234, 0.6)'; // Purple lines
+                ctx.lineWidth = 0.5;
+
+                for (let i = 0; i < this.layers.length - 1; i++) {
+                    const currentLayerSize = this.layers[i];
+                    const nextLayerSize = this.layers[i + 1];
+                    const currentX = i * layerGap - this.width / 2;
+                    const nextX = (i + 1) * layerGap - this.width / 2;
+
+                    for (let j = 0; j < currentLayerSize; j++) {
+                        const currentY = (j - (currentLayerSize - 1) / 2) * 8;
+
+                        for (let k = 0; k < nextLayerSize; k++) {
+                            const nextY = (k - (nextLayerSize - 1) / 2) * 8;
+                            ctx.beginPath();
+                            ctx.moveTo(currentX, currentY);
+                            ctx.lineTo(nextX, nextY);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                // Draw nodes
+                ctx.fillStyle = 'rgba(59, 130, 246, 1)'; // Blue nodes
+                for (let i = 0; i < this.layers.length; i++) {
+                    const layerSize = this.layers[i];
+                    const x = i * layerGap - this.width / 2;
+
+                    for (let j = 0; j < layerSize; j++) {
+                        const y = (j - (layerSize - 1) / 2) * 8;
+                        ctx.beginPath();
+                        ctx.arc(x, y, this.nodeRadius, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                ctx.restore();
+            }
+        }
+
+        function initElements() {
+            elements = [];
+            const width = canvas.width;
+            const height = canvas.height;
+
+            // Create Grid of Elements
+            const cols = Math.floor(width / 80);
+            const rows = Math.floor(height / 80);
+
+            for (let i = 0; i < cols; i++) {
+                for (let j = 0; j < rows; j++) {
+                    const x = i * 80 + Math.random() * 40;
+                    const y = j * 80 + Math.random() * 40;
+
+                    const rand = Math.random();
+                    if (rand < 0.15) {
+                        elements.push(new DataSymbol(x, y, symbols[Math.floor(Math.random() * symbols.length)]));
+                    } else if (rand < 0.25) {
+                        elements.push(new DataMetric(x, y, metrics[Math.floor(Math.random() * metrics.length)]));
+                    } else if (rand < 0.30) {
+                        elements.push(new SimpleChart(x, y));
+                    } else if (rand < 0.35) {
+                        elements.push(new NeuralNetwork(x, y));
+                    } else if (rand < 0.6) {
+                        elements.push(new ParticleDot(x, y));
+                    }
+                }
+            }
+        }
+
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            initElements();
+        }
+
+        // Interaction - Listen on window to capture movement over content
+        function handleMouseMove(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scrollX = window.scrollX || window.pageXOffset;
+            const scrollY = window.scrollY || window.pageYOffset;
+
+            // Calculate mouse position relative to canvas
+            // We need to account for scroll if the canvas position is affected by it
+            // Since canvas is fixed/absolute in hero, getBoundingClientRect is best
+
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Only interact if mouse is near the hero section
+            // Allow some buffer for smooth entry/exit
+            if (y > -100 && y < rect.height + 100 && x > -100 && x < rect.width + 100) {
+                mouse.x = x;
+                mouse.y = y;
+
+                // Update CSS variables for radial gradient
+                // Clamp values to keep gradient within bounds if needed, but letting it bleed is fine
+                heroBackground.style.setProperty('--x', `${x}px`);
+                heroBackground.style.setProperty('--y', `${y}px`);
+            } else {
+                // If far away, reset to center or just stop updating to save performance
+                mouse.x = -1000;
+                mouse.y = -1000;
+            }
+        }
+
+        function handleTouchMove(e) {
+            // Don't prevent default here to allow scrolling on mobile
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+
+            if (y > -100 && y < rect.height + 100 && x > -100 && x < rect.width + 100) {
+                mouse.x = x;
+                mouse.y = y;
+
+                heroBackground.style.setProperty('--x', `${x}px`);
+                heroBackground.style.setProperty('--y', `${y}px`);
+            }
+        }
+
+        // Attach listeners to window to capture events everywhere
+        // This ensures interaction works even when hovering over text, buttons, images, etc.
+        window.addEventListener('mousemove', handleMouseMove);
+
+        // For touch, we can stick to the container or window, but window is safer for consistency
+        window.addEventListener('touchmove', handleTouchMove, { passive: true });
+        window.addEventListener('touchstart', handleTouchMove, { passive: true });
+
+        // Cleanup function to remove window listeners
+        // This is important if the component unmounts (though in this static site it likely won't)
+        const cleanup = () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('touchmove', handleTouchMove);
+            window.removeEventListener('touchstart', handleTouchMove);
+            window.removeEventListener('resize', resizeCanvas);
+            cancelAnimationFrame(animationFrameId);
+        };
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            elements.forEach(el => {
+                el.update();
+                el.draw();
+            });
+
+            animationFrameId = requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        return cleanup;
     }
-    
+
     // Initialize all hero animations
     function initHeroAnimations() {
         try {
             initTypewriter();
             initMetricsCounter();
-            initParticleBackground();
+            initAntigravityBackground();
         } catch (error) {
             console.error('Error initializing hero animations:', error);
             // Continue execution even if hero animations fail
         }
     }
-    
+
     // ============================================
     // UPDATE FOOTER YEAR
     // ============================================
@@ -1561,7 +1381,7 @@
         }
 
         // Scroll to top when clicked
-        backToTopBtn.addEventListener('click', function() {
+        backToTopBtn.addEventListener('click', function () {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
@@ -1570,9 +1390,9 @@
 
         // Listen to scroll events with throttling
         let ticking = false;
-        window.addEventListener('scroll', function() {
+        window.addEventListener('scroll', function () {
             if (!ticking) {
-                window.requestAnimationFrame(function() {
+                window.requestAnimationFrame(function () {
                     toggleBackToTop();
                     ticking = false;
                 });
@@ -1592,7 +1412,7 @@
 
         if (!downloadBtn) return;
 
-        downloadBtn.addEventListener('click', function(e) {
+        downloadBtn.addEventListener('click', function (e) {
             // Add downloading animation
             this.classList.add('downloading');
 
@@ -1686,5 +1506,5 @@
     } else {
         init();
     }
-    
+
 })();
