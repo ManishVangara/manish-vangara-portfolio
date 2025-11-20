@@ -1474,64 +1474,90 @@ a {
     font-weight: var(--font-weight-bold);
 }
 
-/* Section Quotes - Handwritten Note Style */
+/* Section Quotes - Hybrid Approach (Handwritten + Modern) */
 .section-quote {
     position: relative;
     font-family: var(--font-accent);
-    font-size: 26px;
+    /* Caveat */
+    font-size: 30px;
     font-weight: 600;
-    color: var(--text-primary);
     text-align: center;
     margin: 60px auto 0;
-    padding: 40px 60px;
-    max-width: 800px;
+    padding: 50px 70px;
+    max-width: 850px;
     background: var(--bg-card);
-    border-radius: 4px;
-    box-shadow:
-        0 1px 3px rgba(0, 0, 0, 0.12),
-        0 1px 2px rgba(0, 0, 0, 0.08);
-    border: 1px solid var(--border);
-    line-height: 1.5;
+    border-radius: var(--radius-lg);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    box-shadow: var(--shadow-md);
+    line-height: 1.6;
     letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    transform: rotate(-0.5deg);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: rotate(-0.6deg);
 }
 
+/* Gradient border effect */
 .section-quote::before {
     content: '';
     position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%) rotate(2deg);
-    width: 80px;
-    height: 25px;
-    background: rgba(255, 200, 100, 0.6);
-    border-radius: 2px;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    padding: 2px;
+    background: var(--gradient-primary);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
     z-index: -1;
 }
 
+/* Large quotation marks */
 .section-quote::after {
-    content: '';
+    content: '"';
     position: absolute;
-    bottom: 15px;
-    right: 30px;
-    width: 100px;
-    height: 3px;
-    background: var(--text-primary);
-    opacity: 0.6;
+    top: 10px;
+    left: 20px;
+    font-size: 90px;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    opacity: 0.12;
+    font-family: Georgia, serif;
+    line-height: 1;
+    transition: opacity 0.3s ease;
 }
 
+/* Gradient text effect (like metric values) */
 .section-quote span {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block;
     position: relative;
     z-index: 1;
-    display: block;
 }
 
 .section-quote:hover {
-    transform: rotate(0deg) translateY(-2px);
+    transform: rotate(0deg) translateY(-6px) scale(1.02);
     box-shadow:
-        0 4px 8px rgba(0, 0, 0, 0.15),
-        0 2px 4px rgba(0, 0, 0, 0.1);
+        var(--shadow-xl),
+        0 0 60px rgba(59, 130, 246, 0.2);
+}
+
+.section-quote:hover::before {
+    opacity: 0.6;
+}
+
+.section-quote:hover::after {
+    opacity: 0.18;
 }
 
 /* View All Projects Button */
@@ -3043,14 +3069,16 @@ a {
     }
 
     .section-quote {
-        font-size: 24px;
-        padding: 35px 40px;
+        font-size: clamp(24px, 4.5vw, 28px);
+        padding: 40px 45px;
         margin-top: 50px;
+        transform: rotate(-0.5deg);
     }
 
-    .section-quote::before {
-        width: 70px;
-        height: 20px;
+    .section-quote::after {
+        font-size: 70px;
+        top: 8px;
+        left: 15px;
     }
 
     .section-title {
@@ -3450,14 +3478,16 @@ a {
     }
 
     .section-quote {
-        font-size: 22px;
-        padding: 30px 25px;
-        transform: rotate(-0.3deg);
+        font-size: clamp(20px, 5vw, 24px);
+        padding: 35px 30px;
+        margin: 40px 20px 0;
+        transform: rotate(-0.4deg);
     }
 
-    .section-quote::before {
-        width: 60px;
-        height: 20px;
+    .section-quote::after {
+        font-size: 60px;
+        top: 5px;
+        left: 10px;
     }
 
     .section-title {
