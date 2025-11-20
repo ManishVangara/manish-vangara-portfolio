@@ -1,26 +1,63 @@
 [
   {
     "category": "Data Analysis",
-    "skills": ["Pandas", "NumPy", "Matplotlib", "Seaborn", "Excel"]
+    "skills": [
+      "Pandas",
+      "NumPy",
+      "Matplotlib",
+      "Seaborn",
+      "Excel"
+    ]
   },
   {
     "category": "Programming",
-    "skills": ["Python", "SQL", "R", "Scala"]
+    "skills": [
+      "Python",
+      "SQL",
+      "R",
+      "Scala",
+      "JavaScript",
+      "C++"
+    ]
   },
   {
     "category": "Machine Learning",
-    "skills": ["TensorFlow", "PyTorch", "Scikit-learn", "XGBoost", "BERT"]
+    "skills": [
+      "TensorFlow",
+      "PyTorch",
+      "Scikit-learn",
+      "XGBoost",
+      "BERT"
+    ]
   },
   {
     "category": "Data Engineering",
-    "skills": ["Apache Spark", "Airflow", "Kafka", "Docker"]
+    "skills": [
+      "Apache Spark",
+      "Airflow",
+      "Kafka",
+      "Docker"
+    ]
   },
   {
     "category": "Cloud and Tools",
-    "skills": ["AWS", "Azure","GCP", "Tableau", "Databricks","Git"]
+    "skills": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Tableau",
+      "Databricks",
+      "Git"
+    ]
   },
   {
     "category": "Gen AI",
-    "skills": ["LangChain", "Prompt Engineering", "Hugging Face"]
+    "skills": [
+      "LangChain",
+      "Prompt Engineering",
+      "Hugging Face",
+      "LlamaIndex",
+      "OpenAI"
+    ]
   }
 ]

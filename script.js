@@ -553,41 +553,69 @@
     }
 
     // ============================================
-    // CREATE STORY CARD (ACCORDION STYLE)
+    // LOAD MY STORY (SPLIT SCREEN LAYOUT)
     // ============================================
-    function createStoryCard(story) {
-        const card = document.createElement('div');
-        card.className = 'story-card';
+    async function loadMyStory() {
+        const storyContainer = document.getElementById('storyContainer');
 
-        card.innerHTML = `
-            <div class="story-card-header">
-                <div class="story-icon">${escapeHtml(story.icon)}</div>
-                <div class="story-card-title-wrapper">
-                    <h3>${escapeHtml(story.title)}</h3>
-                </div>
-                <div class="story-expand-icon">+</div>
-            </div>
-            <div class="story-card-content">
-                <p>${escapeHtml(story.description)}</p>
-            </div>
-        `;
+        try {
+            const response = await fetch('data/mystory.json');
+            if (!response.ok) throw new Error('Failed to load story');
+            const storyData = await response.json();
 
-        // Add click event to toggle accordion
-        const header = card.querySelector('.story-card-header');
-        header.addEventListener('click', function () {
-            // Close other cards
-            const allCards = document.querySelectorAll('.story-card');
-            allCards.forEach(otherCard => {
-                if (otherCard !== card && otherCard.classList.contains('active')) {
-                    otherCard.classList.remove('active');
-                }
+            storyContainer.innerHTML = '';
+            storyContainer.className = 'story-container story-split-layout';
+
+            // Create Layout Structure
+            const navContainer = document.createElement('div');
+            navContainer.className = 'story-nav';
+
+            const contentContainer = document.createElement('div');
+            contentContainer.className = 'story-content-area';
+
+            // Create Items
+            storyData.forEach((story, index) => {
+                // 1. Create Nav Item
+                const navItem = document.createElement('div');
+                navItem.className = `story-nav-item ${index === 0 ? 'active' : ''}`;
+                navItem.innerHTML = `
+                    <span class="story-nav-icon">${escapeHtml(story.icon)}</span>
+                    <span class="story-nav-title">${escapeHtml(story.title)}</span>
+                `;
+
+                // 2. Create Content Item
+                const contentItem = document.createElement('div');
+                contentItem.className = `story-content-item ${index === 0 ? 'active' : ''}`;
+                contentItem.innerHTML = `
+                    <div class="story-content-header-mobile">
+                        <span class="story-mobile-icon">${escapeHtml(story.icon)}</span>
+                        <h3>${escapeHtml(story.title)}</h3>
+                    </div>
+                    <p>${escapeHtml(story.description)}</p>
+                `;
+
+                // 3. Add Click Event
+                navItem.addEventListener('click', () => {
+                    // Update Nav
+                    document.querySelectorAll('.story-nav-item').forEach(item => item.classList.remove('active'));
+                    navItem.classList.add('active');
+
+                    // Update Content
+                    document.querySelectorAll('.story-content-item').forEach(item => item.classList.remove('active'));
+                    contentItem.classList.add('active');
+                });
+
+                navContainer.appendChild(navItem);
+                contentContainer.appendChild(contentItem);
             });
 
-            // Toggle current card
-            card.classList.toggle('active');
-        });
+            storyContainer.appendChild(navContainer);
+            storyContainer.appendChild(contentContainer);
 
-        return card;
+        } catch (error) {
+            console.error('Error loading story:', error);
+            storyContainer.innerHTML = '<p class="loading">Failed to load story.</p>';
+        }
     }
 
     // ============================================
