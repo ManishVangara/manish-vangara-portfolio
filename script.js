@@ -624,17 +624,29 @@
     }
 
     // ============================================
-    // CREATE ASK ME CARD
+    // CREATE ASK ME CARD (FLIP CARD)
     // ============================================
     function createAskMeCard(topic) {
         const card = document.createElement('div');
         card.className = 'ask-me-card';
 
         card.innerHTML = `
-            <div class="ask-me-icon">${escapeHtml(topic.icon)}</div>
-            <h3>${escapeHtml(topic.title)}</h3>
-            <p>${escapeHtml(topic.description)}</p>
+            <div class="card-flip-inner">
+                <div class="card-flip-front">
+                    <div class="ask-me-icon">${escapeHtml(topic.icon)}</div>
+                    <h3>${escapeHtml(topic.title)}</h3>
+                    <span class="flip-hint">Hover to reveal</span>
+                </div>
+                <div class="card-flip-back">
+                    <p>${escapeHtml(topic.description)}</p>
+                </div>
+            </div>
         `;
+
+        // Add click handler for mobile (tap to flip)
+        card.addEventListener('click', function () {
+            this.classList.toggle('flipped');
+        });
 
         return card;
     }
